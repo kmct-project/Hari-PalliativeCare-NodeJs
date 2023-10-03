@@ -20,8 +20,8 @@
 <body>
   {{#if admin}}
   {{>admin-header}}
-  {{else}}
-  {{>user-header}}
+  {{else if volunteer }}
+   {{>user-header}}
   {{/if}}
 
   {{{body}}}

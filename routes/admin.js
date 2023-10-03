@@ -15,12 +15,19 @@ const verifySignedIn = (req, res, next) => {
 /* GET admins listing. */
 router.get("/", verifySignedIn, function (req, res, next) {
   let administator = req.session.admin;
-  adminHelper.getAllProducts().then((products) => {
-    res.render("admin/home", { admin: true, products, administator });
+  adminHelper.getAllVolunteer().then((volunteers) => {
+    res.render("admin/home", { admin: true, volunteers, administator });
   });
 });
 
-router.get("/all-products", verifySignedIn, function (req, res) {
+router.get("/all-volunteers", verifySignedIn, function (req, res) {
+  let administator = req.session.admin;
+  adminHelper.getAllVolunteer().then((volunteers) => {
+    res.render("admin/home", { admin: true, volunteers, administator });
+  });
+});
+
+router.get("/all-patients", verifySignedIn, function (req, res) {
   let administator = req.session.admin;
   adminHelper.getAllProducts().then((products) => {
     res.render("admin/all-products", { admin: true, products, administator });
@@ -83,23 +90,60 @@ router.get("/signout", function (req, res) {
   res.redirect("/admin");
 });
 
-router.get("/add-product", verifySignedIn, function (req, res) {
+router.get("/add-series", verifySignedIn, function (req, res) {
   let administator = req.session.admin;
-  res.render("admin/add-product", { admin: true, administator });
+  res.render("admin/add-series", { admin: true, administator });
 });
 
-router.post("/add-product", function (req, res) {
-  adminHelper.addProduct(req.body, (id) => {
-    let image = req.files.Image;
-    image.mv("./public/images/product-images/" + id + ".png", (err, done) => {
-      if (!err) {
-        res.redirect("/admin/add-product");
-      } else {
-        console.log(err);
-      }
-    });
-  });
+router.post("/add-series", function (req, res) {
+  adminHelper.addSeries(req.body).then(()=>{
+    res.redirect("/admin/add-series");
+  })
 });
+router.get("/add-patient", verifySignedIn,async function (req, res) {
+  let administator = req.session.admin;
+  let patientId = await adminHelper.getPatientIdFromSeries().then((id)=>id)
+  res.render("admin/add-patient", { admin: true, administator ,patientId});
+});
+
+router.post("/add-patient", function (req, res) {
+  adminHelper.addPatient(req.body).then(()=>{
+    res.redirect("/admin/add-patient");
+  })
+});
+router.get("/add-volunteer", verifySignedIn,async function (req, res) {
+  let administator = req.session.admin;
+  let volunteerId = await adminHelper.getVolunteerIdFromSeries().then((id)=>id)
+  res.render("admin/add-volunteer", { admin: true, administator ,volunteerId});
+});
+
+router.post("/add-volunteer", function (req, res) {
+  adminHelper.addVolunteer(req.body).then(()=>{
+    res.redirect("/admin/add-volunteer");
+  })
+});
+
+router.get("/all-donations", verifySignedIn,
+  async function (req, res) {
+    let administator = req.session.admin;
+    let donations = await adminHelper.getAllDonation();
+    let grossTotal = donations.reduce((total, donation) => {
+      // Convert donation.amount to a number using parseFloat
+      const amount = parseFloat(donation.amount);
+      if (!isNaN(amount)) {
+          return total + amount;
+      }
+      return total; 
+  }, 0);
+    res.render("admin/donation-report", {
+      admin: true,
+      administator,
+      donations,
+      grossTotal
+      
+    });
+  }
+);
 
 router.get("/edit-product/:id", verifySignedIn, async function (req, res) {
   let administator = req.session.admin;

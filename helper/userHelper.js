@@ -20,6 +20,29 @@ module.exports = {
       resolve(products);
     });
   },
+  addDonation:(data) => {
+    return new Promise(async (resolve, reject) => {
+      let donation = await db
+        .get()
+        .collection(collections.DONOR_COLLECTION)
+        .insertOne(data)
+        .then(async(data)=>{
+          await db.get().collection(collections.SERIES_COLLECTION).
+           updateOne({name:"donor_id"}, { $inc: { nextCount: 1 } }).then(()=>{
+             resolve()
+           })
+         })
+    });
+  },
+  getDonationIdFromSeries:() => {
+    return new Promise(async (resolve, reject) => {
+      let pID = await db
+        .get()
+        .collection(collections.SERIES_COLLECTION)
+        .findOne({name:"donor_id"})
+      resolve(pID.prefix+pID.nextCount);
+    });
+  },
 
   doSignup: (userData) => {
     return new Promise(async (resolve, reject) => {

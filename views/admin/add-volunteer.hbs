@@ -1,0 +1,51 @@
+<section>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="text-center">Add Volunteer</h2>
+                <form action="/admin/add-volunteer" enctype="multipart/form-data" method="POST">
+                    <label for="">Name</label>
+                    <input type="text" name="name" class="form-control" required>
+
+                    <label for="">Volunteer id</label>
+                    <input type="text" name="v_id" value="{{volunteerId}}" class="form-control" disabled>
+                    <input type="hidden" name="v_id" value="{{volunteerId}}">
+
+                    <label for="">Age</label>
+                    <input type="text" name="age" class="form-control" required>
+
+                     <label for="">Email</label>
+                    <input type="email" name="email" class="form-control" required>
+
+                     <label for="">Password</label>
+                    <input type="password" name="password" class="form-control" required>
+
+                     <label for="">Joining Date</label>
+                    <input type="date" name="joining_date" class="form-control" required>
+
+                    <label for="">Type</label>
+                    <div>
+                    <label for="doctor">Doctor</label>
+                    <input type="radio" name="type" id="doctor" value="Doctor" required>
+
+                    <label for="nurse">Nurse</label>
+                    <input type="radio" name="type" id="nurse" value="Nurse">
+
+                    <label for="student">Student</label>
+                    <input type="radio" name="type" id="student" value="Student">
+
+                    <label for="other">Other</label>
+                    <input type="radio" name="type" id="other" value="Other">
+                    </div>
+
+                    <label for="">Education</label>
+                    <input type="text" name="education" class="form-control" required>
+
+                    <input type="hidden" name="duties" value="[]" >
+
+                    <button type="submit" class="btn btn-success mt-4">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

@@ -4,26 +4,92 @@ var bcrypt = require("bcrypt");
 const objectId = require("mongodb").ObjectID;
 
 module.exports = {
-  addProduct: (product, callback) => {
-    console.log(product);
-    product.Price = parseInt(product.Price);
-    db.get()
-      .collection(collections.PRODUCTS_COLLECTION)
-      .insertOne(product)
-      .then((data) => {
-        console.log(data);
-        callback(data.ops[0]._id);
-      });
+
+  addSeries: (series)=>{
+    return new Promise((resolve,reject)=>{
+      db.get()
+        .collection(collections.SERIES_COLLECTION)
+        .insertOne(series)
+        .then((data)=>{
+          resolve()
+        })
+    })
+
+  },
+  addPatient:(patient)=>{
+    return new Promise(async(resolve,reject)=>{
+     await  db.get()
+        .collection(collections.PATIENT_COLLECTION)
+        .insertOne(patient)
+        .then(async(data)=>{
+         await db.get().collection(collections.SERIES_COLLECTION).
+          updateOne({name:"Patient_id"}, { $inc: { nextCount: 1 } }).then(()=>{
+            resolve()
+          })
+        })
+    })
+
+  },
+  addVolunteer:(volData)=>{
+    return new Promise(async(resolve,reject)=>{
+      volData.password = await bcrypt.hash(volData.password, 10);
+      volData.duties = [];
+     await  db.get()
+        .collection(collections.VOLUNTEER_COLLECTION)
+        .insertOne(volData)
+        .then(async(data)=>{
+         await db.get().collection(collections.SERIES_COLLECTION).
+          updateOne({name:"volunteer_id"}, { $inc: { nextCount: 1 } }).then(()=>{
+            resolve()
+          })
+        })
+    })
+
+  },
+  getPatientIdFromSeries: () => {
+    return new Promise(async (resolve, reject) => {
+      let pID = await db
+        .get()
+        .collection(collections.SERIES_COLLECTION)
+        .findOne({name:"Patient_id"})
+      resolve(pID.prefix+pID.nextCount);
+    });
+  },
+  getVolunteerIdFromSeries: () => {
+    return new Promise(async (resolve, reject) => {
+      let pID = await db
+        .get()
+        .collection(collections.SERIES_COLLECTION)
+        .findOne({name:"volunteer_id"})
+      resolve(pID.prefix+pID.nextCount);
+    });
+  },
+  getAllDonation:()=>{
+    return new Promise(async(resolve,reject)=>{
+      let data= await db.get().collection(collections.DONOR_COLLECTION)
+      .find().toArray()
+      resolve(data)
+    })
   },
 
-  getAllProducts: () => {
+  getAllVolunteer: () => {
     return new Promise(async (resolve, reject) => {
-      let products = await db
+      let volunteers = await db
         .get()
-        .collection(collections.PRODUCTS_COLLECTION)
+        .collection(collections.VOLUNTEER_COLLECTION)
         .find()
         .toArray();
-      resolve(products);
+      resolve(volunteers);
+    });
+  },
+  getAllPatient: () => {
+    return new Promise(async (resolve, reject) => {
+      let patients = await db
+        .get()
+        .collection(collections.VOLUNTEER_COLLECTION)
+        .find()
+        .toArray();
+      resolve(patients);
     });
   },
 
@@ -69,7 +135,7 @@ module.exports = {
     });
   },
 
-  getProductDetails: (productId) => {
+  getVolunteerDetails: (productId) => {
     return new Promise((resolve, reject) => {
       db.get()
         .collection(collections.PRODUCTS_COLLECTION)
@@ -80,7 +146,7 @@ module.exports = {
     });
   },
 
-  deleteProduct: (productId) => {
+  deleteVolunteer: (productId) => {
     return new Promise((resolve, reject) => {
       db.get()
         .collection(collections.PRODUCTS_COLLECTION)
@@ -92,7 +158,7 @@ module.exports = {
     });
   },
 
-  updateProduct: (productId, productDetails) => {
+  updateVolunteer: (productId, productDetails) => {
     return new Promise((resolve, reject) => {
       db.get()
         .collection(collections.PRODUCTS_COLLECTION)
@@ -113,7 +179,7 @@ module.exports = {
     });
   },
 
-  deleteAllProducts: () => {
+  deleteAllVolunteer: () => {
     return new Promise((resolve, reject) => {
       db.get()
         .collection(collections.PRODUCTS_COLLECTION)
@@ -157,16 +223,7 @@ module.exports = {
     });
   },
 
-  getAllOrders: () => {
-    return new Promise(async (resolve, reject) => {
-      let orders = await db
-        .get()
-        .collection(collections.ORDER_COLLECTION)
-        .find()
-        .toArray();
-      resolve(orders);
-    });
-  },
+  
 
   changeStatus: (status, orderId) => {
     return new Promise((resolve, reject) => {
@@ -186,27 +243,7 @@ module.exports = {
     });
   },
 
-  cancelOrder: (orderId) => {
-    return new Promise((resolve, reject) => {
-      db.get()
-        .collection(collections.ORDER_COLLECTION)
-        .removeOne({ _id: objectId(orderId) })
-        .then(() => {
-          resolve();
-        });
-    });
-  },
-
-  cancelAllOrders: () => {
-    return new Promise((resolve, reject) => {
-      db.get()
-        .collection(collections.ORDER_COLLECTION)
-        .remove({})
-        .then(() => {
-          resolve();
-        });
-    });
-  },
+  
 
   searchProduct: (details) => {
     console.log(details);

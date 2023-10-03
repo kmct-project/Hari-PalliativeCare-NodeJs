@@ -1,28 +1,36 @@
 <section>
-    <div class="container mt-2">
-        <div class="row mt-5">
-            {{#each products}}
-                <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-5">
-                    <div class="card mx-auto" style="width: 16rem; ">
-                        <img src="/images/product-images/{{this._id}}.png" class="card-img-top" alt="phone-image" style="height: 17rem;">
-                            <hr class="text-secondary">
-                        <div class="card-body pb-1">
-                            <div class="" style="display: flex; justify-content: end;">
-                                <div class="" style="margin-right: auto;">
-                                    <h5 class="card-title">{{this.Name}}</h5>
-                                </div>
-                                <div class="">
-                                    <p class="card-text"><small>₹{{this.Price}}</small></p>
-                                </div>
-                            </div>
-                            <p class="card-text">{{this.Description}}</p>
-                            <div class="row">
-                                <a href="#" class="btn btn-primary mt-3">Add to Cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {{/each}}
+    <div class="container mt-5">
+        <div class="row">
+            {{!-- <div class="col-2">
+                <a href="/admin/add-product" class="btn btn-success mb-2">Add a Product</a>
+                <a href="/admin/delete-all-products" onclick="return confirm('Are You Sure to Delete All Products ?')"
+                    class="btn btn-danger">Delete All Products</a>
+            </div> --}}
+            <H1>Volunteers List</H1>
+            <div class="table-responsive-md mt-2">
+                <table class="table responsive">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">No.</th>
+                             <th scope="col">joining Date</th>
+                            <th scope="col">Receipt No</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each volunteers}}
+                        <tr class="align-middle">
+                            <th scope="row">{{incremented @index}}</th>
+                            <td>{{this.joining_date}}</td>
+                            <td>{{this.v_id}}</td>
+                            <td>{{this.name}}</td>
+                            <td>{{this.type}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </section>

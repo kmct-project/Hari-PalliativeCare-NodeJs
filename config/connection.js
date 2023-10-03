@@ -5,8 +5,8 @@ const state = {
 };
 
 module.exports.connect = function (done) {
-  const url = "mongodb://localhost:27017";
-  const dbname = "basicShoppingCart";
+  const url = "mongodb+srv://thevectorcrop:msb.com001@hari-palliativecare-nod.hjygek7.mongodb.net/";
+  const dbname = "Hari-PalliativeCare-NodeJs";
 
   mongoClient.connect(url, { useUnifiedTopology: true }, (err, data) => {
     if (err) {
