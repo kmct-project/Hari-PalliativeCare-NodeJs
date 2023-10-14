@@ -82,7 +82,24 @@ router.get("/signout", function (req, res) {
   req.session.admin = null;
   res.redirect("/admin");
 });
+router.get("/add-service", verifySignedIn, function (req, res) {
+  let administator = req.session.admin;
+  res.render("admin/add-service", { admin: true, administator });
+});
 
+router.post("/add-service", function (req, res) {
+  adminHelper.addService(req.body, (id) => {
+    
+    let image = req.files.Image;
+    image.mv("./public/images/service/" + id + ".png ", (err, done) => {
+      if (!err) {
+        res.redirect("/admin/add-service");
+      } else {
+        console.log(err);
+      }
+    });
+  });
+});
 router.get("/add-product", verifySignedIn, function (req, res) {
   let administator = req.session.admin;
   res.render("admin/add-product", { admin: true, administator });

@@ -5,9 +5,8 @@ const state = {
 };
 
 module.exports.connect = function (done) {
-  const url =
-    "mongodb+srv://thevectorcrop:msb.com001@hari-palliativecare-nod.hjygek7.mongodb.net/?retryWrites=true&w=majority";
-  const dbname = "Hari-PalliativeCare-NodeJs";
+  const url = "mongodb+srv://thevectorcrop:msb.com001@cluster0.hm54v7y.mongodb.net/?retryWrites=true&w=majority";
+  const dbname = "Sreya-WorkshopBookingSystem-Nodejs";
 
   mongoClient.connect(url, { useUnifiedTopology: true }, (err, data) => {
     if (err) {

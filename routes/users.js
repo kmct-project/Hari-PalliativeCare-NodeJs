@@ -13,13 +13,11 @@ const verifySignedIn = (req, res, next) => {
 /* GET home page. */
 router.get("/", async function (req, res, next) {
   let user = req.session.user;
-  let cartCount = null;
   if (user) {
     let userId = req.session.user._id;
-    cartCount = await userHelper.getCartCount(userId);
   }
-  userHelper.getAllProducts().then((products) => {
-    res.render("users/home", { admin: false, products, user, cartCount });
+  userHelper.getAllServices().then((services) => {
+    res.render("users/home", { admin: false, services, user});
   });
 });
 
@@ -88,13 +86,17 @@ router.get("/cart", verifySignedIn, async function (req, res) {
   });
 });
 
-router.get("/add-to-cart/:id", function (req, res) {
-  console.log("api call");
-  let productId = req.params.id;
-  let userId = req.session.user._id;
-  userHelper.addToCart(productId, userId).then(() => {
-    res.json({ status: true });
-  });
+router.get("/service", function (req, res) {
+ // console.log("api call");
+ // let productId = req.params.id;
+  let userId = true;//req.session.user._id;
+ 
+  userHelper.getAllServices().then(async (services) => {
+    await userHelper.getNearestServiceProvider().then((serviceProviders)=>{
+      console.log(serviceProviders);
+      res.render("users/service",{userId, services ,serviceProviders})
+    })
+   });
 });
 
 router.post("/change-product-quantity", function (req, res) {

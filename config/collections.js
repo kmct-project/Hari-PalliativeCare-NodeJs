@@ -4,6 +4,6 @@ module.exports = {
   ADMIN_COLLECTION: "admin",
   CART_COLLECTION: "cart",
   ORDER_COLLECTION: "order",
-  VOLUNTEER_COLLECTION: "volunteer",
-  DONOR_COLLECTION: "donor",
+  SERVICE_COLLECTION: "services",
+  SERVICE_PROVIDER_COLLECTION: "service_provider",
 };

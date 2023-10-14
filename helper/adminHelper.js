@@ -4,6 +4,27 @@ var bcrypt = require("bcrypt");
 const objectId = require("mongodb").ObjectID;
 
 module.exports = {
+  addService: (service, callback) => {
+    // console.log(product);
+    db.get()
+      .collection(collections.SERVICE_COLLECTION)
+      .insertOne(service)
+      .then((data) => {
+        console.log(data);
+        callback(data.ops[0]._id);
+      });
+  },
+
+  getAllServices: () => {
+    return new Promise(async (resolve, reject) => {
+      let services = await db
+        .get()
+        .collection(collections.SERVICE_COLLECTION)
+        .find()
+        .toArray();
+      resolve(services);
+    });
+  },
   addProduct: (product, callback) => {
     console.log(product);
     product.Price = parseInt(product.Price);

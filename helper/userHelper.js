@@ -2,6 +2,8 @@ var db = require("../config/connection");
 var collections = require("../config/collections");
 const bcrypt = require("bcrypt");
 const objectId = require("mongodb").ObjectID;
+const unirest = require("unirest");
+const cheerio = require("cheerio");
 const Razorpay = require("razorpay");
 
 var instance = new Razorpay({
@@ -9,7 +11,96 @@ var instance = new Razorpay({
   key_secret: "xPzG53EXxT8PKr34qT7CTFm9",
 });
 
+const getOrganicData = (URL) => {
+  return unirest
+    .get(URL)
+    .headers({
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36",
+    })
+    .then((response) => {
+      let $ = cheerio.load(response.body);
+      let titles = [];
+      let links = [];
+      let address = [];
+      let displayedLinks = [];
+      $('div > div > div > a > div > div > div.dbg0pd > span').each((i, el) => {
+        titles[i] = $(el).text();
+      });
+
+      console.log("yyyyyy",titles ,"_____________________++")
+
+      $(" div > div > a.yYlJEf.VByer.Q7PwXb.VDgVie.brKmxb").each((i, el) => {
+        links[i] = $(el).data('url')
+        let link =$(el).data('url');
+        const [addressPart] = link.split('/data');
+        const cleanedAddress = addressPart.replace('/maps/dir//', ' ');
+        const finalAddress = cleanedAddress.replace(/\+/g, ' ');
+        // Split the cleaned address into name and address
+        const [name, ...addressArray] = finalAddress.split(',');
+
+        // Join the remaining addressArray elements to form the complete address
+        const addressJoin = addressArray.join(',');
+        address[i] =addressJoin;
+        console.log('Name:', name);
+          console.log('Address:', addressJoin);
+      });
+    //   $(".g .VwiC3b ").each((i, el) => {
+    //     snippets[i] = $(el).text();
+    //   });
+    //   $(".g .yuRUbf .NJjxre .tjvcx").each((i, el) => {
+    //     displayedLinks[i] = $(el).text();
+    //   });
+    //
+    // The link you provided
+          
+
+          // Split the URL by '/data' to get the address part
+          
+
+          // Extract the name and address from the addressPart
+         
+
+          // Replace '/maps/dir//' with a space
+          
+
+          // Replace all plus signs with white spaces
+          
+
+          
+
+
+    ///
+
+      const organicResults = [];
+
+      for (let i = 0; i < titles.length; i++) {
+        organicResults[i] = {
+          title: titles[i],
+          links: links[i],
+          address : address [i]
+          // snippet: snippets[i],
+          // displayedLink: displayedLinks[i],
+        };
+      }
+      console.log("backenfd'",organicResults[0])
+       return organicResults
+
+
+    })
+}
+
 module.exports = {
+  getAllServices: () => {
+    return new Promise(async (resolve, reject) => {
+      let services = await db
+        .get()
+        .collection(collections.SERVICE_COLLECTION)
+        .find()
+        .toArray();
+      resolve(services);
+    });
+  },
   getAllProducts: () => {
     return new Promise(async (resolve, reject) => {
       let products = await db
@@ -20,6 +111,21 @@ module.exports = {
       resolve(products);
     });
   },
+getNearestServiceProvider:()=>{
+  return new Promise(async (resolve, reject) => {
+  const URL="https://www.google.com/search?q=near+me+workshop";
+  await getOrganicData(URL).then((ServiceProviders)=>{
+    if(ServiceProviders){
+      resolve(ServiceProviders)
+    }else{
+      reject("error")
+    }
+  }).catch((err)=>{
+    console.log("from backend",err)
+  })
+  
+})
+},
 
   doSignup: (userData) => {
     return new Promise(async (resolve, reject) => {

@@ -1,0 +1,232 @@
+
+<div class="container">
+    <div class="bg-img2 col-12">
+        <!-- <p>24/7 On-Spot</p>
+        <h1>
+            service
+        </h1> -->
+    </div>
+    <div class="p-3 m-3">
+        	<!-- all products -->
+		<div id='products' class="col-lg-9 mx-auto">
+			<div class="row mx-auto">
+				{{#each services }}
+                <div class="card mx-auto mb-3 open-modal" id="{{this._id}}" data-service-id="{{ this._id }}" data-service-name="{{ this.name }}" style="width: 10rem; border: 1px solid #000;">
+                    <img class="card-img-top" src="/images/service/{{this._id}}.png" alt="Card image cap">
+                    <div class="card-body">
+                        <p class="card-title">{{this.name}}</p>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+
+  <div id='products' class="col-lg-9 mx-auto">
+	
+        </div>
+      <!-- Add a button to trigger the modal -->
+<!-- <button id="loginButton" class="btn btn-sm btn-success col-lg-12">Login</button> -->
+
+<!-- Define the modal -->
+<div id="myModal" class="modal">
+    {{#if userId}}
+  <div class="modal-content col-lg-5 rounded mx-auto border pt-4">
+    <span class="close" id="closeModal">&times;</span>
+    <h3 class="alert alert-light rounded-pill" id="modalHeader" style="text-align:center">h1</h3>
+   		<div class="row mx-auto">
+				{{#each serviceProviders }}
+              <div class="card mx-auto mb-3 ml-3 open-modal" id="{{this._id}}" data-service-id="{{ this._id }}" data-service-name="{{ this.name }}" style="width: 300px; height: 200px; border: 1px solid #000; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); border-radius: 10px; margin: 10px;">
+                  <div class="card-body" style="padding: 10px;">
+                      <a href="https://www.google.com{{this.links}}" style="text-decoration: none; color: #333;">
+                          <h3 class="card-title" style="font-size: 1.5rem; margin: 0;">{{this.title}}</h3>
+                          <p class="card-text" style="font-size: 1rem; margin: 0;">{{this.address}}</p>
+                      </a>
+                  </div>
+              </div>
+
+                {{/each}}
+            </div>
+  </div>
+  {{else}}
+   <div class="modal-content col-lg-5 rounded mx-auto border pt-4">
+    <span class="close" id="closeModal">&times;</span>
+    <h3 class="alert alert-light rounded-pill" style="text-align:center">Please try to  Login </h3>
+    <!-- <button type="submit" class="btn btn-sm btn-success col-lg-12">Login</button> -->
+    <a href="/login" class="btn btn-sm btn-success col-lg-12">Login</a>
+    <a href="/signup" style="display: block;text-align: center;" >Not a member? signup</a>
+
+   </div>
+   {{/if}}
+</div>
+
+{{!-- <div id="myModal" class="modal">
+    {{#if userId}}
+  <div class="modal-content col-lg-5 rounded mx-auto border pt-4">
+    <span class="close" id="closeModal">&times;</span>
+    <h3 class="alert alert-light rounded-pill" id="modalHeader" style="text-align:center">h1</h3>
+    <form action="/orders" method="POST">
+      <div class="alert alert-danger" role="alert">
+      </div>
+      <!-- email -->
+      <!-- <div class="form-group">
+        <label for="address"> -->
+        <div class="form-group">
+            <label for="name">name</label>
+            <input required type="text" name="name" id="" value="{{values.name}}" class="form-control-sm form-control" placeholder="name">
+        </div>
+      <!-- <div class="form-group">
+        <label for="address">address</label>
+        <input required type="text" name="address" id="" value="{{values.address}}" class="form-control-sm form-control" placeholder="address">
+      </div> -->
+      <div class="form-group">
+        <label for="location">Current location:</label>
+        <input required type="text" name="location" id="current_location" value="{{values.location}}" class="form-control-sm form-control" placeholder="location">
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input required type="text" name="phone" id="" value="{{values.phone}}" class="form-control-sm form-control" placeholder="phone">
+      </div>
+      <div class="form-group">
+        <label for="phone">service</label>
+        <input required type="text" name="service" id="serviceInput" value="{{values.service}}" class="form-control-sm form-control" placeholder="service">
+      </div>
+      <div class="form-group">
+        <label for="phone">workshop_name</label>
+        <input required type="text" name="service" id="serviceInput" value="{{values.service}}" class="form-control-sm form-control" placeholder="service">
+      </div>
+      <div class="form-group">
+        <label for="phone">contact_number</label>
+        <input required type="text" name="service" id="serviceInput" value="{{values.service}}" class="form-control-sm form-control" placeholder="service">
+      </div>
+      <hr>
+      <button type="submit" class="btn btn-sm btn-success col-lg-12">book now</button>
+    </form>
+  </div>
+  {{else}}
+   <div class="modal-content col-lg-5 rounded mx-auto border pt-4">
+    <span class="close" id="closeModal">&times;</span>
+    <h3 class="alert alert-light rounded-pill" style="text-align:center">Please try to  Login </h3>
+    <!-- <button type="submit" class="btn btn-sm btn-success col-lg-12">Login</button> -->
+    <a href="/login" class="btn btn-sm btn-success col-lg-12">Login</a>
+    <a href="/signup" style="display: block;text-align: center;" >Not a member? signup</a>
+
+   </div>
+   {{/if}}
+</div> --}}
+
+    </div>
+</div>
+<script>
+// JavaScript to handle modal display
+// Get the modal and close button
+var modal = document.getElementById('myModal');
+var closeButton = document.getElementsByClassName('close')[0];
+
+// Get all elements with the "open-modal" class
+var openModalButtons = document.getElementsByClassName('open-modal');
+// var serviceId = this.getAttribute('data-service-id');
+// var serviceName = this.getAttribute('data-service-name');
+
+// Add a click event listener to each "open-modal" element
+for (var i = 0; i < openModalButtons.length; i++) {
+    // console.log(openModalButtons[i],"kkk",i)
+    openModalButtons[i].addEventListener('click', function() {
+        modal.style.display = 'block';
+    });
+
+}
+
+// Close the modal when the close button is clicked
+closeButton.addEventListener('click', function() {
+    modal.style.display = 'none';
+});
+
+// Close the modal when the overlay (background) is clicked
+window.addEventListener('click', function(event) {
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+});
+
+// JavaScript to handle the modal and update the header
+document.querySelectorAll('.open-modal').forEach(function(element) {
+    element.addEventListener('click', function() {
+        // Get the data attributes from the clicked div
+        var serviceId = this.getAttribute('data-service-id');
+        var serviceName = this.getAttribute('data-service-name');
+
+        // Update the modal header
+        var modalHeader = document.getElementById('modalHeader');
+        modalHeader.textContent = serviceName;
+    });
+});
+</script>
+  <style>
+    nav{
+      background-color: rgb(252, 165, 144);
+    }
+    .one-edge-shadow {
+              box-shadow: 0 8px 2px -5px rgb(246, 245, 245);
+}
+.display-8{
+  font-weight: 200;
+  font-size: 30px;
+  /* font-colour: "teal-200"; */
+}
+.bg-img {
+  /* The image used */
+  background-image: url("/images/home_banner_1.png");
+
+  min-height: 380px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+
+  /* Center and scale the image nicely */
+  /* background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; */
+
+  /* Needed to position the navbar */
+  /* position: relative; */
+}
+.bg-img2 {
+  /* The image used */
+  background-image: url("/images/service_header.png");
+  min-height: 280px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;}
+  /* Style for the modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 5px;
+  width: 80%;
+}
+
+.close {
+  float: right;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Add some additional styling as needed */
+
+  </style>
+
