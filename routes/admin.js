@@ -15,14 +15,18 @@ const verifySignedIn = (req, res, next) => {
 /* GET admins listing. */
 router.get("/", verifySignedIn, function (req, res, next) {
   let administator = req.session.admin;
-  adminHelper.getAllVolunteer().then((volunteers) => {
-    res.render("admin/home", { admin: true, volunteers, administator });
+  adminHelper.getAllVolunteer().then(async(volunteers) => {
+    const patients=  await adminHelper.getAllPatient()
+    const patientsCount= patients.length;
+    const volunteersCount= patients.length;
+    const volunteersPendingCount = await adminHelper.getAllPendingVolunteerCount();
+    res.render("admin/home", { admin: true, volunteers,patients,patientsCount,volunteersCount,volunteersPendingCount, administator });
   });
 });
 
 router.get("/all-volunteers", verifySignedIn, function (req, res) {
   let administator = req.session.admin;
-  adminHelper.getAllVolunteer().then((volunteers) => {
+  adminHelper.getAllVolunteer().then(async (volunteers) => {
     res.render("admin/home", { admin: true, volunteers, administator });
   });
 });
@@ -33,6 +37,44 @@ router.get("/all-patients", verifySignedIn, function (req, res) {
     res.render("admin/all-products", { admin: true, products, administator });
   });
 });
+
+router.get("/approval/:vid",async function (req, res) {
+  console.log("ggg")
+  let v_id = req.params.vid;
+  await adminHelper.approveVolunteer(v_id).then((resp)=>{
+    res.redirect("/admin")
+  })
+});
+
+router.get("/assign-duties/:vid",verifySignedIn, function (req, res) {
+  let administator = req.session.admin;
+  let vId = req.params.vid;
+  adminHelper.getVolunteerById(vId).then((volunteer) => {
+     adminHelper.getAllPatient().then((patients)=>{
+      res.render("admin/assign-duties", { admin: true, volunteer, vId,patients, administator });
+    }
+
+    )
+  });
+})
+
+
+router.post("/assign-duties/",verifySignedIn, function (req, res) {
+   let administator = req.session.admin;
+   let vId = req.body.v_id;
+   let pId =req.body.p_id;
+   let dutyId= req.body.dutyId;
+  adminHelper.setVolunteerDutiesById(vId,req.body).then(() => {
+    res.redirect("/admin")
+  });
+})
+router.get("/all-pending-volunteers",verifySignedIn, function (req, res) {
+  let administator = req.session.admin;
+  adminHelper.getAllPendingVolunteers().then((volunteer) => {
+    res.render("admin/all-pending-volunteers", { admin: true, volunteer, administator });
+  });
+})
+
 
 router.get("/signup", function (req, res) {
   if (req.session.signedInAdmin) {

@@ -10,15 +10,53 @@ var instance = new Razorpay({
 });
 
 module.exports = {
-  getAllProducts: () => {
+  getVolunteerDutiesById:(vId)=>{
+    return new Promise(async (resolve, reject) => {
+      const volunteer = await db.get().collection(collections.VOLUNTEER_COLLECTION).findOne({ v_id: vId });
+      resolve(volunteer);
+    });
+  },
+  getAllDuties: () => {
     return new Promise(async (resolve, reject) => {
       let products = await db
         .get()
-        .collection(collections.PRODUCTS_COLLECTION)
+        .collection(collections.VOLUNTEER_COLLECTION)
         .find()
         .toArray();
       resolve(products);
     });
+  },
+  addVolunteer:(volData)=>{
+    return new Promise(async(resolve,reject)=>{
+      volData.password = await bcrypt.hash(volData.password, 10);
+      volData.duties = [];
+     await  db.get()
+        .collection(collections.VOLUNTEER_COLLECTION)
+        .insertOne(volData)
+        .then(async(data)=>{
+         await db.get().collection(collections.SERIES_COLLECTION).
+          updateOne({name:"volunteer_id"}, { $inc: { nextCount: 1 } }).then(()=>{
+            resolve()
+          })
+        })
+    })
+
+  },
+  completeDutiesById:(vId,dutyIndex)=>{
+    return new Promise(async (resolve, reject) => {
+      const volunteer = await db.get().collection(collections.VOLUNTEER_COLLECTION).findOne({ v_id: vId });
+        // Check if the dutyIndex is valid
+        if (dutyIndex >= 0 && dutyIndex < volunteer.duties.length) {
+          // Remove the duty at the specified index using $pull
+          await db.collection(collections.VOLUNTEER_COLLECTION).updateOne(
+            { v_id: vId },
+            { $pull: { duties: volunteer.duties[dutyIndex] } }
+          );
+
+          resolve('Duty deleted successfully.');
+        }
+
+    })
   },
 
   doSignup: (userData) => {

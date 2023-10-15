@@ -6,7 +6,35 @@
                 <a href="/admin/delete-all-products" onclick="return confirm('Are You Sure to Delete All Products ?')"
                     class="btn btn-danger">Delete All Products</a>
             </div> --}}
-            <H1>Volunteers List</H1>
+               <div class="count-card">
+                    <h5>Total Patients</h5>
+                    <img src="/images/Patients.png" alt="Patients" class="patient-image">
+                    <h3>{{patientsCount}}</h3>
+                </div>
+                <div class="count-card">
+                    <h5>Total Volunteers</h5>
+                    <img src="/images/volunteer.png" alt="Volunteer" class="patient-image">
+                    <h3>{{volunteersCount}}</h3>
+                </div>
+                <div class="count-card">
+                    <h5>Pending Volunteers Approval</h5>
+                    <img src="/images/volunteer.png" alt="Volunteer" class="patient-image">
+                    <a href="/admin/all-pending-volunteers">
+                        <h3>{{volunteersPendingCount}}</h3>
+                    </a>
+                </div>
+
+            {{!-- <H3></H3>
+            <div class="manage-card"> 
+                <a href="/assign-duties" class="no-underline"> 
+                  <img src="/images/assign.png" height="50px" width="50px">
+                    Assign Duties
+                </a>
+
+            </div>  --}}
+            
+
+            <H2>Manage Volunteers</H2>
             <div class="table-responsive-md mt-2">
                 <table class="table responsive">
                     <thead class="table-dark">
@@ -16,6 +44,8 @@
                             <th scope="col">Receipt No</th>
                             <th scope="col">Name</th>
                             <th scope="col">Type</th>
+                            <th scope="col">Action</th>
+                            <th scope="col">No.Duties</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,6 +56,12 @@
                             <td>{{this.v_id}}</td>
                             <td>{{this.name}}</td>
                             <td>{{this.type}}</td>
+                            <td><a href="admin/assign-duties/{{this.v_id}}" class="no-underline"> 
+                                <img src="/images/assign.png" height="50px" width="50px">
+                                Assign Duties
+                                </a>
+                            </td>
+                            <td>{{this.duties.length}}</td>
                         </tr>
                         {{/each}}
                     </tbody>
@@ -34,3 +70,38 @@
         </div>
     </div>
 </section>
+<style>
+.count-card {
+    border: 2px solid #ccc; 
+    text-align: center; 
+    padding: 20px; 
+    width: 200px; 
+    margin-right: 10px; 
+    display: inline-block; 
+}
+.font-8{
+    font-size: 5;
+    color: #ccc;
+}
+
+.patient-image {
+    height: 80px; 
+    width: 80px; 
+    display: block; 
+    margin: 0 auto 10px; 
+}
+.manage-card {
+    border: 2px solid #50fc0056;
+    text-align: center; 
+    padding: 10px; 
+    width: 200px; 
+    margin-right: 10px; 
+    display: inline-block; 
+}
+.no-underline {
+    text-decoration: none;
+    color: blue; 
+    font-weight: bold; /* Make the text bold, for example */
+}
+
+</style>

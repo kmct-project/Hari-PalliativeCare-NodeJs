@@ -26,6 +26,7 @@
 
 
          <a href="#" id="print" class="btn btn-warning">Download Receipt</a>
+          <a href="/" id="close" class="btn btn-danger">Close</a>
         
     </div>
 
@@ -34,16 +35,19 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
     let printLink = document.getElementById("print");
+    let closeLink = document.getElementById("close");
     let container = document.getElementById("container");
 
     printLink.addEventListener("click", event => {
         event.preventDefault();
         printLink.style.display = "none";
+        closeLink.style.display = "none";
         window.print();
     }, false);
 
     container.addEventListener("click", event => {
         printLink.style.display = "flex";
+        closeLink.style.display = "flex";
     }, false);
 
 }, false);

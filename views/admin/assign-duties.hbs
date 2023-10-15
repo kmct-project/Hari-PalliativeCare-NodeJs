@@ -1,0 +1,142 @@
+<section>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="text-center">Assign Duties</h2>
+                <form action="/admin/assign-duties" enctype="multipart/form-data" method="POST">
+                    <label for="">Name</label>
+                    <input type="text" name="name" value="{{volunteer.name}}" class="form-control" disabled>
+                    <input type="hidden" name="name" value="{{volunteer.name}}">
+
+                    <label for="">Volunteer id</label>
+                    <input type="text" name="v_id" value="{{volunteer.v_id}}" class="form-control" disabled>
+                    <input type="hidden" name="v_id" value="{{volunteer.v_id}}">
+
+                    <label for="">Type</label>
+                    <input type="text" name="type"  value="{{volunteer.type}}" class="form-control" disabled>
+                     <input type="hidden" name="type" value="{{volunteer.type}}">
+
+                    <label for="">Patient Id</label>
+                    <input type="text" id="patients" name="p_id" class="form-control" list="patients_list" required>
+                        <datalist id="patients_list">
+                        {{#each patients}}
+                            <option value="{{p_id}}" data-id="{{p_id}}" data-name="{{name}}" data-disease="{{disease}}"
+                             data-panchayath="{{panchayath}}" data-ward="{{wardNo}}" data-care_status="{{care_status}}"
+                             data-g_name="{{g_name}}" data-g_mobile="{{g_mobile}}" data-nurseNote="{{nurseNote}}">{{name}}</option>
+                        {{/each}}
+                        </datalist>
+                    
+                    <button id="showDetailsButton" type="button">Show Details</button>
+
+                    <label for="patientDetails">Patient Details</label>
+                    <label for="">PatientName</label>
+                    <input type="text" id="patientName" name="patientName" class="form-control" readonly>
+                    <label for="">Disease</label>
+                    <input type="text" id="patientDisease" class="form-control" readonly>
+                    <label for="">Panchayath</label>
+                    <input type="text" id="patientPanchayath" class="form-control" readonly>
+                    <label for="">ward</label>
+                    <input type="text" id="patientWard" class="form-control" readonly>
+                    <label for="">care status</label>
+                    <input type="text" id="patientCare_status" class="form-control" readonly>
+                    <label for="">nurse Note</label>
+                    <textarea cols="3"  id="patientNurseNote" name="nurseNote" class="form-control" readonly> </textarea>
+                    <label for="">guardian nome</label>
+                    <input type="text" id="patientG_name"  name ="patientG_name" class="form-control" readonly>
+                    <label for="">guardian mobile</label>
+                    <input type="text" id="patientG_mobile" name="patientG_mobile" class="form-control" readonly>
+                    <input type="hidden" id="currentDate" name="currentDate">
+                    <input type="hidden" id="dutyId" name="dutyId" >
+                    
+
+                    <div id="error-message" class="text-danger"></div>
+
+
+                    <button type="submit" class="btn btn-success mt-4">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+  const inputElement = document.getElementById("patients");
+  const datalistElement = document.getElementById("patients_list");
+  const errorMessageElement = document.getElementById("error-message");
+  // Get the hidden input element by its ID
+const reqIdInput = document.getElementById("reqId");
+
+// Set the value of the input field to the current timestamp using Date.now()
+reqIdInput.value = Date.now().toString();
+
+
+  inputElement.addEventListener("input", () => {
+    console.log(inputElement)
+    const inputValue = inputElement.value;
+    const validOptions = Array.from(datalistElement.options).map((option) => option.value);
+
+    if (!validOptions.includes(inputValue)) {
+      errorMessageElement.textContent = "Invalid flat occupant. Please select from the list.";
+      inputElement.setCustomValidity("Invalid");
+    } else {
+      errorMessageElement.textContent = "";
+      inputElement.setCustomValidity("");
+      
+    }
+  });
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+      // Get the hidden input element
+    const currentDateInput = document.getElementById("currentDate");
+    const dutyIdInput = document.getElementById("dutyId");
+
+    // Create a JavaScript Date object for the current date and time
+    const currentDate = new Date();
+
+    // Format the date as needed (e.g., YYYY-MM-DD)
+    const formattedDate = currentDate.toISOString().split('T')[0];
+
+    // Set the formatted date as the value of the hidden input
+    currentDateInput.value = formattedDate;
+    // Get the elements
+    const patientsInput = document.getElementById("patients");
+    const showDetailsButton = document.getElementById("showDetailsButton");
+    const patientNameInput = document.getElementById("patientName");
+    const patientDiseaseInput = document.getElementById("patientDisease");
+    const patientPanchayathInput = document.getElementById("patientPanchayath");
+    const patientWardInput = document.getElementById("patientWard");
+    const patientCareStatusInput = document.getElementById("patientCare_status");
+    const patientNurseNoteInput = document.getElementById("patientNurseNote");
+    const patientGuardianNameInput = document.getElementById("patientG_name");
+    const patientGuardianMobileInput = document.getElementById("patientG_mobile");
+    // Add an event listener to the button
+    showDetailsButton.addEventListener("click", function(event) {
+         event.preventDefault();
+        const selectedPatient = document.querySelector(`datalist#patients_list option[value="${patientsInput.value}"]`);
+        if (selectedPatient) {
+            const patientName = selectedPatient.getAttribute("data-name");
+            const patientDisease = selectedPatient.getAttribute("data-disease");
+            const patientPanchayath = selectedPatient.getAttribute("data-panchayath");
+            const patientWard = selectedPatient.getAttribute("data-ward");
+            const patientCareStatus = selectedPatient.getAttribute("data-care_status");
+            const patientGuardianName = selectedPatient.getAttribute("data-g_name");
+            const patientGuardianMobile = selectedPatient.getAttribute("data-g_mobile");
+            const patientNurseNote = selectedPatient.getAttribute("data-nurseNote");
+
+            // Set the values in the respective input fields
+            patientNameInput.value = patientName;
+            patientDiseaseInput.value = patientDisease;
+            patientPanchayathInput.value = patientPanchayath;
+            patientWardInput.value = patientWard;
+            patientCareStatusInput.value = patientCareStatus;
+            patientGuardianNameInput.value = patientGuardianName;
+            patientGuardianMobileInput.value = patientGuardianMobile;
+            patientNurseNoteInput.value=patientNurseNote;
+             const patientId = selectedPatient.getAttribute("data-id");
+            dutyIdInput.value =patientId+"_"+formattedDate;
+    }
+});
+})
+</script>
+

@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-6">
                 <h2 class="text-center">Add Volunteer</h2>
-                <form action="/admin/add-volunteer" enctype="multipart/form-data" method="POST">
+                <form action="/volunteer/add-volunteer" enctype="multipart/form-data" method="POST">
                     <label for="">Name</label>
                     <input type="text" name="name" class="form-control" required>
 
@@ -42,6 +42,11 @@
                     <input type="text" name="education" class="form-control" required>
 
                     {{!-- <input type="hidden" name="duties" value="[]" > --}}
+
+                    <div id="warningMessage" class="alert alert-warning">
+                   The admin will contact the volunteer to confirm their interest,
+                    and if everything is in order, they will then accept the volunteer application.
+                    </div>
 
                     <button type="submit" class="btn btn-success mt-4">Submit</button>
                 </form>

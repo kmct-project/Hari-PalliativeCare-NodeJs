@@ -1,0 +1,28 @@
+ <div class="table-responsive-md mt-2">
+                <table class="table responsive">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">No.</th>
+                             <th scope="col">PatientId</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Panchayath</th>
+                            <th scope="col">Ward</th>
+                            <th scope="col">Disease</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each patients}}
+                        <tr class="align-middle">
+                            <th scope="row">{{incremented @index}}</th>
+                            <td>{{this.p_id}}</td>
+                            <td>{{this.name}}</td>
+                            <td>{{this.panchayath}}</td>
+                            <td>{{this.wardNo}}</td>
+                            <td>{{this.disease}}</td>
+                            <td>{{this.care_status}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>

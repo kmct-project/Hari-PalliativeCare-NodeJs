@@ -64,6 +64,15 @@ module.exports = {
       resolve(pID.prefix+pID.nextCount);
     });
   },
+  getVolunteerById : (vid)=>{
+    return new Promise(async (resolve, reject) => {
+      let volunteer = await db
+        .get()
+        .collection(collections.VOLUNTEER_COLLECTION)
+        .findOne({v_id: vid})
+      resolve(volunteer);
+    });
+  },
   getAllDonation:()=>{
     return new Promise(async(resolve,reject)=>{
       let data= await db.get().collection(collections.DONOR_COLLECTION)
@@ -86,13 +95,63 @@ module.exports = {
     return new Promise(async (resolve, reject) => {
       let patients = await db
         .get()
-        .collection(collections.VOLUNTEER_COLLECTION)
+        .collection(collections.PATIENT_COLLECTION)
         .find()
         .toArray();
       resolve(patients);
     });
   },
+  approveVolunteer:(vId)=>{
+    console.log("gfrgrhrthjtejyrj")
+    return new Promise(async (resolve, reject) => {
+      const volunteer = await db.get().collection(collections.VOLUNTEER_COLLECTION).findOne({ v_id: vId });
+       volunteer.status="approved";
+      await db.get().collection(collections.VOLUNTEER_COLLECTION).updateOne({ v_id: vId }, { $set: { status: "approved" } });
+      resolve("approved successfully.");
+    });
 
+  },
+  getAllPendingVolunteerCount:()=>{
+    return new Promise(async (resolve,reject)=>{
+      const pendingVolunteersCount = await db.get().collection(collections.VOLUNTEER_COLLECTION).countDocuments({ status: 'pending' });
+      // .find({ status: 'pending' }).toArray();
+      resolve( pendingVolunteersCount)
+    })
+  },
+  getAllPendingVolunteers:()=>{
+    return new Promise(async (resolve,reject)=>{
+      
+      const pendingVolunteers = await db.get().collection(collections.VOLUNTEER_COLLECTION).find({ status: 'pending' }).toArray();
+      resolve( pendingVolunteers)
+    })
+
+  },
+  setVolunteerDutiesById:(vId,dutyData)=>{
+ 
+    return new Promise(async (resolve, reject) => {
+      const volunteer = await db.get().collection(collections.VOLUNTEER_COLLECTION).findOne({ v_id: vId });
+       volunteer.duties.push(dutyData);  
+      await db.get().collection(collections.VOLUNTEER_COLLECTION).updateOne({ v_id: vId }, { $set: { duties: volunteer.duties } });
+      resolve("Duty data added successfully.");
+    });
+  },
+  deleteVolunteerDutiesById:(vId,dutyIndex)=>{
+    return new Promise(async (resolve, reject) => {
+      const volunteer = await db.get().collection(collections.VOLUNTEER_COLLECTION).findOne({ v_id: vId });
+        // Check if the dutyIndex is valid
+        if (dutyIndex >= 0 && dutyIndex < volunteer.duties.length) {
+          // Remove the duty at the specified index using $pull
+          await db.collection(collections.VOLUNTEER_COLLECTION).updateOne(
+            { v_id: vId },
+            { $pull: { duties: volunteer.duties[dutyIndex] } }
+          );
+
+          resolve('Duty deleted successfully.');
+        }
+
+    })
+
+  },
   doSignup: (adminData) => {
     return new Promise(async (resolve, reject) => {
       if (adminData.Code == "admin123") {

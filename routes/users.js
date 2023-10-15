@@ -14,7 +14,7 @@ const verifySignedIn = (req, res, next) => {
 router.get("/", async function (req, res, next) {
  
   
-    res.render("users/home", { admin: false,  user });
+    res.render("users/home", { admin: false, });
   
 });
 
