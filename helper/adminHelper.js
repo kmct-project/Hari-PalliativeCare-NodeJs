@@ -86,7 +86,7 @@ module.exports = {
       let volunteers = await db
         .get()
         .collection(collections.VOLUNTEER_COLLECTION)
-        .find()
+        .find({status:"approved"})
         .toArray();
       resolve(volunteers);
     });
@@ -97,12 +97,11 @@ module.exports = {
         .get()
         .collection(collections.PATIENT_COLLECTION)
         .find()
-        .toArray();
+        .toArray({status:"approved"});
       resolve(patients);
     });
   },
   approveVolunteer:(vId)=>{
-    console.log("gfrgrhrthjtejyrj")
     return new Promise(async (resolve, reject) => {
       const volunteer = await db.get().collection(collections.VOLUNTEER_COLLECTION).findOne({ v_id: vId });
        volunteer.status="approved";
@@ -110,6 +109,29 @@ module.exports = {
       resolve("approved successfully.");
     });
 
+  },
+  rejectionVolunteer :(vId)=>{
+    return new Promise(async (resolve, reject) => {
+      
+      const patient = await db.get().collection(collections.PATIENT_COLLECTION).deleteOne({ v_id: vId });
+      resolve("rejected successfully.");
+    });
+  },
+  approvePatient:(pId)=>{
+    return new Promise(async (resolve, reject) => {
+      const patient = await db.get().collection(collections.PATIENT_COLLECTION).findOne({ p_id: pId });
+      patient.status="approved";
+      await db.get().collection(collections.PATIENT_COLLECTION).updateOne({ p_id: pId }, { $set: { status: "approved" } });
+      resolve("approved successfully.");
+    });
+
+  },
+  rejectionPatient :(pId)=>{
+    return new Promise(async (resolve, reject) => {
+      
+      const patient = await db.get().collection(collections.PATIENT_COLLECTION).deleteOne({ p_id: pId });
+      resolve("rejected successfully.");
+    });
   },
   getAllPendingVolunteerCount:()=>{
     return new Promise(async (resolve,reject)=>{
@@ -123,6 +145,21 @@ module.exports = {
       
       const pendingVolunteers = await db.get().collection(collections.VOLUNTEER_COLLECTION).find({ status: 'pending' }).toArray();
       resolve( pendingVolunteers)
+    })
+
+  },
+  getAllPendingPatientCount:()=>{
+    return new Promise(async (resolve,reject)=>{
+      const pendingPatientsCount = await db.get().collection(collections.PATIENT_COLLECTION).countDocuments({ status: 'pending' });
+      // .find({ status: 'pending' }).toArray();
+      resolve( pendingPatientsCount)
+    })
+  },
+  getAllPendingPatients:()=>{
+    return new Promise(async (resolve,reject)=>{
+      
+      const pendingPatients = await db.get().collection(collections.PATIENT_COLLECTION).find({ status: 'pending' }).toArray();
+      resolve( pendingPatients)
     })
 
   },
@@ -141,7 +178,7 @@ module.exports = {
         // Check if the dutyIndex is valid
         if (dutyIndex >= 0 && dutyIndex < volunteer.duties.length) {
           // Remove the duty at the specified index using $pull
-          await db.collection(collections.VOLUNTEER_COLLECTION).updateOne(
+          await db.get().collection(collections.VOLUNTEER_COLLECTION).updateOne(
             { v_id: vId },
             { $pull: { duties: volunteer.duties[dutyIndex] } }
           );
@@ -194,22 +231,33 @@ module.exports = {
     });
   },
 
-  getVolunteerDetails: (productId) => {
+  getVolunteerDetails: (Id) => {
     return new Promise((resolve, reject) => {
       db.get()
-        .collection(collections.PRODUCTS_COLLECTION)
-        .findOne({ _id: objectId(productId) })
+        .collection(collections.VOLUNTEER_COLLECTION)
+        .findOne({ v_id: Id })
         .then((response) => {
           resolve(response);
         });
     });
   },
 
-  deleteVolunteer: (productId) => {
+  deleteVolunteer: (Id) => {
     return new Promise((resolve, reject) => {
       db.get()
-        .collection(collections.PRODUCTS_COLLECTION)
-        .removeOne({ _id: objectId(productId) })
+        .collection(collections.VOLUNTEER_COLLECTION)
+        .removeOne({ v_id: Id })
+        .then((response) => {
+          console.log(response);
+          resolve(response);
+        });
+    });
+  },
+  deletePatients: (pId) => {
+    return new Promise((resolve, reject) => {
+      db.get()
+        .collection(collections.PATIENT_COLLECTION)
+        .removeOne({ p_id:pId })
         .then((response) => {
           console.log(response);
           resolve(response);
@@ -217,18 +265,15 @@ module.exports = {
     });
   },
 
-  updateVolunteer: (productId, productDetails) => {
+  updateVolunteer: (Id, Details) => {
     return new Promise((resolve, reject) => {
       db.get()
-        .collection(collections.PRODUCTS_COLLECTION)
+        .collection(collections.VOLUNTEER_COLLECTION)
         .updateOne(
-          { _id: objectId(productId) },
+          { _id: objectId(Id) },
           {
             $set: {
-              Name: productDetails.Name,
-              Category: productDetails.Category,
-              Price: productDetails.Price,
-              Description: productDetails.Description,
+           ...Details
             },
           }
         )
@@ -241,7 +286,17 @@ module.exports = {
   deleteAllVolunteer: () => {
     return new Promise((resolve, reject) => {
       db.get()
-        .collection(collections.PRODUCTS_COLLECTION)
+        .collection(collections.VOLUNTEER_COLLECTION)
+        .remove({})
+        .then(() => {
+          resolve();
+        });
+    });
+  },
+  deleteAllPatients: () => {
+    return new Promise((resolve, reject) => {
+      db.get()
+        .collection(collections.PATIENT_COLLECTION)
         .remove({})
         .then(() => {
           resolve();
@@ -280,48 +335,6 @@ module.exports = {
           resolve();
         });
     });
-  },
+  }
 
-  
-
-  changeStatus: (status, orderId) => {
-    return new Promise((resolve, reject) => {
-      db.get()
-        .collection(collections.ORDER_COLLECTION)
-        .updateOne(
-          { _id: objectId(orderId) },
-          {
-            $set: {
-              "orderObject.status": status,
-            },
-          }
-        )
-        .then(() => {
-          resolve();
-        });
-    });
-  },
-
-  
-
-  searchProduct: (details) => {
-    console.log(details);
-    return new Promise(async (resolve, reject) => {
-      db.get()
-        .collection(collections.PRODUCTS_COLLECTION)
-        .createIndex({ Name : "text" }).then(async()=>{
-          let result = await db
-            .get()
-            .collection(collections.PRODUCTS_COLLECTION)
-            .find({
-              $text: {
-                $search: details.search,
-              },
-            })
-            .toArray();
-          resolve(result);
-        })
-
-    });
-  },
-};
+}

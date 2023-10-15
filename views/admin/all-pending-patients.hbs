@@ -1,0 +1,46 @@
+<section>
+    <div class="container mt-5">
+        <div class="row">
+            
+            <div class="table-responsive-md mt-2">
+                <table class="table responsive">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Address </th>
+                            <th scope="col">Disease</th>
+                            <th scope="col">Ration Card</th>
+                            <th scope="col">Guardian Mobile</th>
+                            <th scope="col">Nurse Note</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each patient}}
+                        <tr class="align-middle">
+                            <th scope="row">{{incremented @index}}</th>
+                            <td>{{this.p_id}}</td>
+                            <td>{{this.name}}</td>
+                            <td>{{this.address}}</td>
+                            <td>{{this.disease}}</td>
+                            <td>{{ration_card}}</td>
+                            <td>{{this.g_mobile}}</td>
+                            <td>{{this.nurseNote}}</td>
+                            <td><a href="/admin/approvalPatient/{{this.p_id}}" class="no-underline"> 
+                                Approval
+                                </a>
+                            </td>
+                             <td><a  class="btn btn-danger" href="/admin/rejectionPatient/{{this.p_id}}" class="no-underline"> 
+                                rejection
+                                </a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

@@ -7,28 +7,9 @@
                     class="btn btn-danger">Delete All Products</a>
             </div> --}}
                <div class="count-card">
-                    <h5>Total Patients</h5>
+                    <h5>Patient Approved Status</h5>
                     <img src="/images/Patients.png" alt="Patients" class="patient-image">
-                    <h3>{{patientsCount}}</h3>
-                </div>
-                <div class="count-card">
-                    <h5>Total Volunteers</h5>
-                    <img src="/images/volunteer.png" alt="Volunteer" class="patient-image">
-                    <h3>{{volunteersCount}}</h3>
-                </div>
-                <div class="count-card">
-                    <h5>Pending Volunteers Approval</h5>
-                    <img src="/images/volunteer.png" alt="Volunteer" class="patient-image">
-                    <a href="/admin/all-pending-volunteers">
-                        <h3>{{volunteersPendingCount}}</h3>
-                    </a>
-                </div>
-                <div class="count-card">
-                    <h5>Pending Patient Approval</h5>
-                    <img src="/images/Patients.png" alt="Volunteer" class="patient-image">
-                    <a href="/admin/all-pending-patients">
-                        <h3>{{patientsPendingCount}}</h3>
-                    </a>
+                    <h3>{{patient.status}}</h3>
                 </div>
 
             {{!-- <H3></H3>
@@ -39,41 +20,32 @@
                 </a>
 
             </div>  --}}
-            
 
-            <H2>Manage Volunteers</H2>
+            <H2>Volunteers Schedules</H2>
             <div class="table-responsive-md mt-2">
                 <table class="table responsive">
                     <thead class="table-dark">
                         <tr>
                             <th scope="col">No.</th>
-                             <th scope="col">joining Date</th>
-                            <th scope="col">Receipt No</th>
+                             <th scope="col">date</th>
+                             <th scope="col">Volunteer Id</th>
                             <th scope="col">Name</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Action</th>
-                            <th scope="col">No.Duties</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{#each volunteers}}
+                        {{#each duties}}
                         <tr class="align-middle">
                             <th scope="row">{{incremented @index}}</th>
-                            <td>{{this.joining_date}}</td>
+                            <td>{{this.currentDate}}</td>
                             <td>{{this.v_id}}</td>
                             <td>{{this.name}}</td>
                             <td>{{this.type}}</td>
-                            <td><a href="admin/assign-duties/{{this.v_id}}" class="no-underline"> 
-                                <img src="/images/assign.png" height="50px" width="50px">
-                                Assign Duties
-                                </a>
-                            </td>
-                            <td>{{this.duties.length}}</td>
                         </tr>
                         {{/each}}
                     </tbody>
                 </table>
             </div>
+
         </div>
     </div>
 </section>

@@ -7,6 +7,7 @@ var hbs = require("express-handlebars");
 var usersRouter = require("./routes/users");
 var adminRouter = require("./routes/admin");
 var volunteerHelper = require("./routes/volunteer")
+var patientHelper = require("./routes/patient");
 var fileUpload = require("express-fileupload");
 var db = require("./config/connection");
 var session = require("express-session");
@@ -45,6 +46,7 @@ db.connect((err) => {
 app.use("/", usersRouter);
 app.use("/admin", adminRouter);
 app.use("/volunteer",volunteerHelper);
+app.use("/patient",patientHelper);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

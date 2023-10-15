@@ -1,0 +1,81 @@
+<section>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="text-center">Patient Registration</h2>
+                <form action="/patient/add-patient" enctype="multipart/form-data" method="POST">
+                    <label for="name">Name of the Patient</label>
+                    <input type="text" name="name" id="name" class="form-control" required>
+
+                    <label for="p_id">Patient ID</label>
+                    <input type="text" name="p_id" id="p_id" value="{{pId}}" class="form-control" disabled>
+                    <input type="hidden" name="p_id" value="{{pId}}">
+
+                    <label>Gender</label>
+                    <div>
+                        <label for="male">Male</label>
+                        <input type="radio" name="gender" id="male" value="male" required>
+                        <label for="female">Female</label>
+                        <input type="radio" name="gender" id="female" value="female" >
+                    </div>
+
+                    <label for="age">Age</label>
+                    <input type="text" name="age" id="age" class="form-control" required>
+
+                    <label for="">Email</label>
+                    <input type="email" name="email" class="form-control" required>
+
+                     <label for="">Password</label>
+                    <input type="password" name="password" class="form-control" required>
+
+                    <label for="panchayath">Panchayath</label>
+                    <input type="text" name="panchayath" id="panchayath" class="form-control" required>
+
+                    <label for="wardNo">Ward No</label>
+                    <input type="text" name="wardNo" id="wardNo" class="form-control" required>
+
+                    <label for="g_name">Guardian's Name</label>
+                    <input type="text" name="g_name" id="g_name" class="form-control" required>
+
+                    <label for="g_mobile">Guardian's Phone Number</label>
+                    <input type="text" name="g_mobile" id="g_mobile" class="form-control" required>
+
+                    <label for="address">Address</label>
+                    <textarea cols="3" name="address" id="address" class="form-control" required></textarea>
+
+                    <label>Ration Card</label>
+                    <div>
+                        <label for="yellow">Yellow</label>
+                        <input type="radio" name="ration_card" id="yellow" value="yellow"  required>
+                        <label for="pink">Pink</label>
+                        <input type="radio" name="ration_card" id="pink" value="pink" >
+                        <label for="blue">Blue</label>
+                        <input type="radio" name="ration_card" id="blue" value="blue" >
+                        <label for="white">White</label>
+                        <input type="radio" name="ration_card" id="white" value="white" >
+                    </div>
+
+                    <h3>Primary Conditions:</h3>
+
+                    <label for="disease">Disease</label>
+                    <input type="text" name="disease" id="disease" class="form-control" required>
+
+                    <label for="nurseNote">Nurse Note</label>
+                    <textarea cols="3" name="nurseNote" id="nurseNote" class="form-control" required></textarea>
+
+                    <label for="care_status">Care status</label>
+                    <input type="text" name="care_status" id="care_status" class="form-control" required>
+
+                    <div id="warningMessage" class="alert alert-warning">
+                   The admin will contact the volunteer to confirm their interest,
+                    and if everything is in order, they will then accept the volunteer application.
+                    </div>
+                     
+
+
+                    <button type="submit" class="btn btn-success mt-4">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

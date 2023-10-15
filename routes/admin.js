@@ -18,9 +18,10 @@ router.get("/", verifySignedIn, function (req, res, next) {
   adminHelper.getAllVolunteer().then(async(volunteers) => {
     const patients=  await adminHelper.getAllPatient()
     const patientsCount= patients.length;
-    const volunteersCount= patients.length;
+    const volunteersCount= volunteers.length;
     const volunteersPendingCount = await adminHelper.getAllPendingVolunteerCount();
-    res.render("admin/home", { admin: true, volunteers,patients,patientsCount,volunteersCount,volunteersPendingCount, administator });
+    const patientsPendingCount = await adminHelper.getAllPendingPatientCount();
+    res.render("admin/home", { admin: true, volunteers,patients,patientsCount,volunteersCount,volunteersPendingCount,patientsPendingCount, administator });
   });
 });
 
@@ -45,6 +46,21 @@ router.get("/approval/:vid",async function (req, res) {
     res.redirect("/admin")
   })
 });
+
+router.get("/approvalPatient/:pid",async function (req, res) {
+  console.log("ggg")
+  let p_id = req.params.pid;
+  await adminHelper.approvePatient(p_id).then((resp)=>{
+    res.redirect("/admin")
+  })
+});
+router.get("/rejectionPatient/:pid",async function (req, res) {
+  let p_id = req.params.pid;
+  await adminHelper.approvePatient(p_id).then((resp)=>{
+    res.redirect("/admin")
+  })
+});
+
 
 router.get("/assign-duties/:vid",verifySignedIn, function (req, res) {
   let administator = req.session.admin;
@@ -72,6 +88,13 @@ router.get("/all-pending-volunteers",verifySignedIn, function (req, res) {
   let administator = req.session.admin;
   adminHelper.getAllPendingVolunteers().then((volunteer) => {
     res.render("admin/all-pending-volunteers", { admin: true, volunteer, administator });
+  });
+})
+
+router.get("/all-pending-patients",verifySignedIn, function (req, res) {
+  let administator = req.session.admin;
+  adminHelper.getAllPendingPatients().then((patient) => {
+    res.render("admin/all-pending-patients", { admin: true, patient, administator });
   });
 })
 
@@ -149,6 +172,7 @@ router.get("/add-patient", verifySignedIn,async function (req, res) {
 });
 
 router.post("/add-patient", function (req, res) {
+  req.body.status="approved";
   adminHelper.addPatient(req.body).then(()=>{
     res.redirect("/admin/add-patient");
   })
@@ -160,6 +184,7 @@ router.get("/add-volunteer", verifySignedIn,async function (req, res) {
 });
 
 router.post("/add-volunteer", function (req, res) {
+  req.body.status="approved";
   adminHelper.addVolunteer(req.body).then(()=>{
     res.redirect("/admin/add-volunteer");
   })
@@ -187,41 +212,6 @@ router.get("/all-donations", verifySignedIn,
   }
 );
 
-router.get("/edit-product/:id", verifySignedIn, async function (req, res) {
-  let administator = req.session.admin;
-  let productId = req.params.id;
-  let product = await adminHelper.getProductDetails(productId);
-  console.log(product);
-  res.render("admin/edit-product", { admin: true, product, administator });
-});
-
-router.post("/edit-product/:id", verifySignedIn, function (req, res) {
-  let productId = req.params.id;
-  adminHelper.updateProduct(productId, req.body).then(() => {
-    if (req.files) {
-      let image = req.files.Image;
-      if (image) {
-        image.mv("./public/images/product-images/" + productId + ".png");
-      }
-    }
-    res.redirect("/admin/all-products");
-  });
-});
-
-router.get("/delete-product/:id", verifySignedIn, function (req, res) {
-  let productId = req.params.id;
-  adminHelper.deleteProduct(productId).then((response) => {
-    fs.unlinkSync("./public/images/product-images/" + productId + ".png");
-    res.redirect("/admin/all-products");
-  });
-});
-
-router.get("/delete-all-products", verifySignedIn, function (req, res) {
-  adminHelper.deleteAllProducts().then(() => {
-    res.redirect("/admin/all-products");
-  });
-});
-
 router.get("/all-users", verifySignedIn, function (req, res) {
   let administator = req.session.admin;
   adminHelper.getAllUsers().then((users) => {
@@ -239,59 +229,6 @@ router.get("/remove-user/:id", verifySignedIn, function (req, res) {
 router.get("/remove-all-users", verifySignedIn, function (req, res) {
   adminHelper.removeAllUsers().then(() => {
     res.redirect("/admin/all-users");
-  });
-});
-
-router.get("/all-orders", verifySignedIn, async function (req, res) {
-  let administator = req.session.admin;
-  let orders = await adminHelper.getAllOrders();
-  res.render("admin/all-orders", {
-    admin: true,
-    administator,
-    orders,
-  });
-});
-
-router.get(
-  "/view-ordered-products/:id",
-  verifySignedIn,
-  async function (req, res) {
-    let administator = req.session.admin;
-    let orderId = req.params.id;
-    let products = await userHelper.getOrderProducts(orderId);
-    res.render("admin/order-products", {
-      admin: true,
-      administator,
-      products,
-    });
-  }
-);
-
-router.get("/change-status/", verifySignedIn, function (req, res) {
-  let status = req.query.status;
-  let orderId = req.query.orderId;
-  adminHelper.changeStatus(status, orderId).then(() => {
-    res.redirect("/admin/all-orders");
-  });
-});
-
-router.get("/cancel-order/:id", verifySignedIn, function (req, res) {
-  let orderId = req.params.id;
-  adminHelper.cancelOrder(orderId).then(() => {
-    res.redirect("/admin/all-orders");
-  });
-});
-
-router.get("/cancel-all-orders", verifySignedIn, function (req, res) {
-  adminHelper.cancelAllOrders().then(() => {
-    res.redirect("/admin/all-orders");
-  });
-});
-
-router.post("/search", verifySignedIn, function (req, res) {
-  let administator = req.session.admin;
-  adminHelper.searchProduct(req.body).then((response) => {
-    res.render("admin/search-result", { admin: true, administator, response });
   });
 });
 

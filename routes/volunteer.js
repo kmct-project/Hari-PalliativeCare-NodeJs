@@ -16,7 +16,7 @@ const verifySignedIn = (req, res, next) => {
 /* GET home page. */
 router.get("/",verifySignedIn, async function (req, res, next) {
   let volunteer = req.session.volunteer;
-  console.log(volunteer.v_id, "jjjjj")
+  // console.log(volunteer.v_id, "jjjjj")
   volunteerHelper.getVolunteerDutiesById(volunteer.v_id).then((duties)=>{
     res.render("volunteer/home", { admin: false,  volunteer ,duties});
   })
@@ -28,7 +28,7 @@ router.get("/",verifySignedIn, async function (req, res, next) {
 
 router.get("/signup", function (req, res) {
   if (req.session.signedIn) {
-    res.redirect("/");
+    res.redirect("/volunteer");
   } else {
     res.render("users/signup", { admin: false });
   }
@@ -38,7 +38,7 @@ router.post("/signup", function (req, res) {
   volunteerHelper.doSignup(req.body).then((response) => {
     req.session.signedIn = true;
     req.session.volunteer = response;
-    res.redirect("/");
+    res.redirect("/volunteer");
   });
 });
 
@@ -58,11 +58,11 @@ router.post("/signin", function (req, res) {
     volunteerHelper.doSignin(req.body).then((response) => {
     if (response.status) {
       req.session.signedIn = true;
-      req.session.volunteer = response.user;
+      req.session.volunteer = response.volunteer;
       res.redirect("/volunteer");
     } else {
       req.session.signInErr = "Invalid Email/Password";
-      res.redirect("/signin");
+      res.redirect("/volunteer/signin");
     }
   });
 });
