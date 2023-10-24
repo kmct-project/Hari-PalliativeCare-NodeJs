@@ -1,4 +1,4 @@
-<style>
+{{!-- <style>
     @media print {
    @page {
      margin-left: 0.8in;
@@ -30,7 +30,29 @@
         
     </div>
 
-</div>
+</div> --}}
+
+<style>
+    
+ .centered {
+    position: absolute;
+    left: 50%;
+    margin-top: -226px;
+    font-size: 25px;
+    font-weight: 700;
+    color: black;
+    transform: translate(-50%, -50%);
+}
+</style>
+<center>
+    <img class="mt-4" src="/images/cr.png" width="50%">
+      <div class="centered">{{data.name}}</div>
+    </center>
+    <center>
+<a href="#" id="print" class="btn btn-warning">Download Receipt</a>
+          <a href="/" id="close" class="btn btn-danger">Close</a>
+</center>
+
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {

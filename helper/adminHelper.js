@@ -73,6 +73,7 @@ module.exports = {
       resolve(volunteer);
     });
   },
+
   getAllDonation:()=>{
     return new Promise(async(resolve,reject)=>{
       let data= await db.get().collection(collections.DONOR_COLLECTION)

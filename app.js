@@ -25,9 +25,19 @@ app.engine(
     layoutsDir: __dirname + "/views/layout/",
     partialsDir: __dirname + "/views/header-partials/",
     helpers: {
+     
+      
       incremented: function (index) {
         index++;
         return index;
+      },
+      getStatusBtnClass: function (status) {
+        if (status === 'pending') {
+          return 'bg-danger'; 
+        }
+        else if(status === 'approved') {
+          return 'bg-success'; 
+        }
       },
     },
   })

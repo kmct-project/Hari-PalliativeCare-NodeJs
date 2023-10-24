@@ -1,39 +1,53 @@
-<section>
-    <div class="container mt-5">
+
+
+            <div class="page-wrapper">
+    <div class="page-breadcrumb">
         <div class="row">
-            {{!-- <div class="col-2">
-                <a href="/admin/add-product" class="btn btn-success mb-2">Add a Product</a>
-                <a href="/admin/delete-all-products" onclick="return confirm('Are You Sure to Delete All Products ?')"
-                    class="btn btn-danger">Delete All Products</a>
-            </div> --}}
-            <div class="table-responsive-md mt-2">
-                <table class="table responsive">
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col">No.</th>
-                             <th scope="col">Date</th>
-                            <th scope="col">Receipt No</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each donations}}
-                        <tr class="align-middle">
-                            <th scope="row">{{incremented @index}}</th>
-                            <td>{{this.date}}</td>
-                            <td>{{this.d_id}}</td>
-                            <td>{{this.name}}</td>
-                            <td>{{this.amount}}</td>
-                        </tr>
-                        {{/each}}
-                           <tr class="total-row">
-                            <td colspan="4">Gross Total Amount:</td>
-                            <td>{{grossTotal}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Manage Donations</h4><br><br>
             </div>
         </div>
     </div>
-</section>
+    <div class="container-fluid">
+        <div class="col-lg-3">
+
+               <div class="card card-hover card-sm">
+                <div class="box bg-secondary text-center">
+                  <h1 class="font-light text-white">
+                    <i class="bi bi-cash"></i>
+                  </h1>
+                  <h6 class="text-white">Gross Total Amount</h6>
+                  <h3 class="text-white"><b>{{grossTotal}}</b></h3>
+                </div>
+              </div>
+              </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="zero_config" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                            <th>No.</th>
+                             <th>Date</th>
+                            <th>Receipt No</th>
+                            <th>Name</th>
+                            <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {{#each donations}}
+                            <tr>
+                            <td>{{incremented @index}}</td>
+                             <td>{{this.date}}</td>
+                            <td>{{this.d_id}}</td>
+                            <td>{{this.name}}</td>
+                            <td>{{this.amount}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

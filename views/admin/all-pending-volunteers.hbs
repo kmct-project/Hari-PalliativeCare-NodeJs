@@ -1,39 +1,55 @@
-<section>
-    <div class="container mt-5">
+
+
+            <div class="page-wrapper">
+    <div class="page-breadcrumb">
         <div class="row">
-            
-            <div class="table-responsive-md mt-2">
-                <table class="table responsive">
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col">No.</th>
-                             <th scope="col">joining Date</th>
-                            <th scope="col">Id</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">status</th>
-                            <th scope="col">Action</th>
-                            <th scope="col">No.Duties</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each volunteer}}
-                        <tr class="align-middle">
-                            <th scope="row">{{incremented @index}}</th>
-                            <td>{{this.joining_date}}</td>
-                            <td>{{this.v_id}}</td>
-                            <td>{{this.name}}</td>
-                            <td>{{this.type}}</td>
-                            <td>{{this.status}}</td>
-                            <td><a href="/admin/approval/{{this.v_id}}" class="no-underline"> 
-                                Approval
-                                </a>
-                            </td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Requested Volunteers List</h4>
+                <div class="ms-auto text-end">
+                </div>
             </div>
         </div>
     </div>
-</section>
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="zero_config" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                          <th>No.</th>
+                             <th>joining Date</th>
+                            <th>Id</th>
+                            <th>Name</th>
+                             <th>Age</th>
+                             <th>Gender</th>
+                            <th>Type</th>
+                            <th>status</th>
+                            <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {{#each volunteer}}
+                            <tr>
+                                <td>{{incremented @index}}</td>
+                                <td>{{this.joining_date}}</td>
+                            <td>{{this.v_id}}</td>
+                            <td>{{this.name}}</td>
+                            <td>{{this.age}}</td>
+                            <td>{{this.gender}}</td>
+                            <td>{{this.type}}</td>
+                            <td>{{this.status}}</td>
+                            <td><a href="/admin/approval/{{this.v_id}}" class="btn btn-success text-white"> 
+                                Approval
+                                </a>
+                            </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

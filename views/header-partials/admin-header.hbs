@@ -1,51 +1,151 @@
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Admin Panel</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                {{#if administator}}
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/admin">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/all-patient">All Patient</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/add-patient">Add Patient</a> 
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/add-volunteer">Add Volunteer</a>
-                    </li>
-                    {{!-- <li class="nav-item">
-                        <a class="nav-link" href="/admin/all-users">All Users</a>
-                    </li> --}}
-                    {{!-- <li class="nav-item">
-                        <a class="nav-link" href="/admin/add-series">Add Series</a>
-                    </li> --}}
-                    {{!-- <li class="nav-item ms-3">
-                        <form class="d-flex" action="/admin/search" method="POST">
-                            <input class="form-control me-2" name="search" type="search" placeholder="Search"
-                                aria-label="Search">
-                            <button class="btn btn-outline-secondary" type="submit">Search</button>
-                        </form>
-                    </li> --}}
-                </ul>
-                {{/if}}
 
-                {{#if administator}}
-                <a href="#" class="btn btn-secondary ms-3">{{administator.Name}}</a>
-                <a href="/admin/signout" class="btn btn-outline-secondary ms-3">Sign Out</a>
-                {{else}}
-                <a href="/admin/signup" class="btn btn-secondary ms-3">Sign Up</a>
-                <a href="/admin/signin" class="btn btn-outline-secondary ms-3">Sign In</a>
-                {{/if}}
+<style>
+    .sidebar-nav ul .sidebar-item .first-level .sidebar-item.active .sidebar-link {
+    opacity: 1;
+    background-color: black;
+}
+</style>
+
+<div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+    data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+    <!-- ============================================================== -->
+    <!-- Topbar header - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <header class="topbar" data-navbarbg="skin5">
+        <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+            <div class="navbar-header" data-logobg="skin5">
+                <!-- ============================================================== -->
+                <!-- Logo -->
+                <!-- ============================================================== -->
+                <a class="navbar-brand" href="/admin">
+                    <!-- Logo icon -->
+                    <b class="logo-icon ps-2">
+                        <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                        <!-- Dark Logo icon -->
+                        <h3 class="mt-3">Admin Panel</h3>
+                    </b>
+                    <!--End Logo icon -->
+                    <!-- Logo text -->
+
+                    <!-- Logo icon -->
+                    <!-- <b class="logo-icon"> -->
+                    <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                    <!-- Dark Logo icon -->
+                    <!-- <img src="../assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
+
+                    <!-- </b> -->
+                    <!--End Logo icon -->
+                </a>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Toggle which is visible on mobile only -->
+                <!-- ============================================================== -->
+                <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
+                        class="ti-menu ti-close"></i></a>
             </div>
+            <!-- ============================================================== -->
+            <!-- End Logo -->
+            <!-- ============================================================== -->
+            <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                <!-- ============================================================== -->
+                <!-- toggle and nav items -->
+                <!-- ============================================================== -->
+                <ul class="navbar-nav float-start me-auto">
+                    <li class="nav-item d-none d-lg-block">
+                        <a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)"
+                            data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a>
+                    </li>
+
+
+                </ul>
+
+                <ul class="navbar-nav float-end">
+
+
+
+                    <li class="nav-item dropdown">
+                        <a class="
+                    nav-link
+                    dropdown-toggle
+                    text-muted
+                    waves-effect waves-dark
+                    pro-pic
+                  " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="/assets2/images/users/1.jpg" alt="user" class="rounded-circle" width="31" />
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
+                            {{#if administator}}
+                            <a class="dropdown-item" href="javascript:void(0)"><i class="mdi mdi-wallet me-1 ms-1"></i>
+                                {{administator.Name}}</a>
+                            {{/if}}
+                            <a class="dropdown-item" href="/admin/signout"><i class="mdi mdi-account me-1 ms-1"></i>
+                                Logout</a>
+
+
+                            <div class="dropdown-divider"></div>
+
+                        </ul>
+                    </li>
+                    <!-- ============================================================== -->
+                    <!-- User profile and search -->
+                    <!-- ============================================================== -->
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+
+    <aside class="left-sidebar" data-sidebarbg="skin5">
+        <!-- Sidebar scroll-->
+        <div class="scroll-sidebar">
+            <!-- Sidebar navigation-->
+            <nav class="sidebar-nav">
+                <ul id="sidebarnav" class="pt-4">
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin"
+                            aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
+                                class="hide-menu">Home</span></a>
+                    </li>
+
+                    
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/all-duties"
+                            aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
+                                class="hide-menu">Assign Duties</span></a>
+                         </li>
+
+                       <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/all-patients"
+                            aria-expanded="false"><i class="bi bi-person-circle"></i><span
+                                class="hide-menu">Manage Patients</span></a>
+                         </li>
+
+                         <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/all-volunteers"
+                            aria-expanded="false"><i class="bi bi-person-circle"></i><span
+                                class="hide-menu">Manage Volunteers</span></a>
+                         </li>
+
+                         <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/all-donations"
+                            aria-expanded="false"><i class="bi bi-person-circle"></i><span
+                                class="hide-menu">Manage Donations</span></a>
+                         </li>
+
+                      
+
+            
+
+              
+                    
+
+
+                </ul>
+            </nav>
+            <!-- End Sidebar navigation -->
         </div>
-    </nav>
-</header>
+        <!-- End Sidebar scroll-->
+    </aside>

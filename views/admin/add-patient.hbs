@@ -1,68 +1,163 @@
-<section>
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-md-6">
-                <h2 class="text-center">Add Patient</h2>
-                <form action="/admin/add-patient" enctype="multipart/form-data" method="POST">
-                    <label for="name">Name of the Patient</label>
-                    <input type="text" name="name" id="name" class="form-control" required>
 
-                    <label for="p_id">Patient ID</label>
-                    <input type="text" name="p_id" id="p_id" value="{{patientId}}" class="form-control" disabled>
+
+
+
+
+<style>
+    .form-control {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #3e5569;
+    background-color: #eaeaea;
+    background-clip: padding-box;
+    border: 1px solid #e9ecef;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 2px;
+    transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+}
+
+.form-select {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #3e5569;
+    vertical-align: middle;
+    background-color: #eaeaea;
+    background-image: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e);
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    border: 1px solid #e9ecef;
+    border-radius: 2px;
+    -webkit-appearance: none;
+    appearance: none;
+}
+</style>
+
+            <div class="page-wrapper">
+
+
+ <div class="card rounded-3">
+          
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Volunteer Registration</h3>
+                        <form action="/admin/add-patient" enctype="multipart/form-data" method="POST" class="px-md-2">
+
+             <div class="form-outline mb-2">
+             <label class="form-label" for="name">Name of the Patient</label>
+                <input type="text" name="name" id="name" class="form-control" required />
+             </div>
+                    <input type="hidden" name="p_id" id="p_id" value="{{patientId}}" class="form-control" disabled>
                     <input type="hidden" name="p_id" value="{{patientId}}">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div class="form-outline datepicker">
+                    <label for="age" class="form-label">Age</label>
+                    <input type="text"  name="age" class="form-control" id="age" required />
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                <label for="age" class="form-label">Gender</label>
+                  <select class="select form-select" name="gender">
+                    <option value="1" selected disabled>Select Gender</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                  </select>
 
-                    <label>Gender</label>
-                    <div>
-                        <label for="male">Male</label>
-                        <input type="radio" name="gender" id="male" value="male" required>
-                        <label for="female">Female</label>
-                        <input type="radio" name="gender" id="female" value="female" >
-                    </div>
+                </div>
+              </div>
 
-                    <label for="age">Age</label>
-                    <input type="text" name="age" id="age" class="form-control" required>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+            <div class="form-outline mb-2">
+             <label class="form-label" for="name">Email</label>
+                <input type="email" name="email" id="email" class="form-control" required />
+             </div>
+             </div>
+                 <div class="col-md-6 mb-3">
+            <div class="form-outline mb-2">
+             <label class="form-label" for="name">Password</label>
+                <input type="password" name="password" id="password" class="form-control" required/>
+             </div>
+             </div>
+             </div>
 
-                    <label for="panchayath">Panchayath</label>
-                    <input type="text" name="panchayath" id="panchayath" class="form-control" required>
+             <div class="row">
+                <div class="col-md-6 mb-3">
+            <div class="form-outline mb-2">
+             <label class="form-label" for="name">Panchayath</label>
+                <input type="text" name="panchayath" id="panchayath" class="form-control" required />
+             </div>
+             </div>
+                 <div class="col-md-6 mb-3">
+            <div class="form-outline mb-2">
+             <label class="form-label" for="name">Ward No</label>
+                <input type="number" name="wardNo" id="wardNo" class="form-control" required/>
+             </div>
+             </div>
+             </div>
 
-                    <label for="wardNo">Ward No</label>
-                    <input type="text" name="wardNo" id="wardNo" class="form-control" required>
+                <div class="row">
+                <div class="col-md-6 mb-3">
+            <div class="form-outline mb-2">
+             <label class="form-label" for="name">Guardian's Name</label>
+                <input type="text" name="g_name" id="g_name" class="form-control" required />
+             </div>
+             </div>
+                 <div class="col-md-6 mb-3">
+            <div class="form-outline mb-2">
+             <label class="form-label" for="name">Guardian's Phone Number</label>
+                <input type="number" name="g_mobile" id="g_mobile" class="form-control" required/>
+             </div>
+             </div>
+             </div>
 
-                    <label for="g_name">Guardian's Name</label>
-                    <input type="text" name="g_name" id="g_name" class="form-control" required>
+              <div class="form-outline mb-2">
+             <label class="form-label" for="name">Address</label>
+                <input type="text" name="address" id="address" class="form-control" required />
+             </div>
 
-                    <label for="g_mobile">Guardian's Phone Number</label>
-                    <input type="text" name="g_mobile" id="g_mobile" class="form-control" required>
+                 <label for="age" class="form-label">Ration Card</label>
+                  <select class="select form-select" name="ration_card">
+                    <option value="1" selected disabled>Select Ration Card Color</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="pink">Pink</option>
+                    <option value="blue">Blue</option>
+                    <option value="white">White</option>
+                  </select>
 
-                    <label for="address">Address</label>
-                    <textarea cols="3" name="address" id="address" class="form-control" required></textarea>
+                  <hr>
+                  <h4>Primary Conditions</h4>
+        
+            <div class="form-outline mb-2">
+             <label class="form-label" for="Disease">Disease</label>
+                <input type="text" name="disease" id="disease" class="form-control" required />
+             </div>
 
-                    <label>Ration Card</label>
-                    <div>
-                        <label for="yellow">Yellow</label>
-                        <input type="radio" name="ration_card" id="yellow" value="yellow"  required>
-                        <label for="pink">Pink</label>
-                        <input type="radio" name="ration_card" id="pink" value="pink" >
-                        <label for="blue">Blue</label>
-                        <input type="radio" name="ration_card" id="blue" value="blue" >
-                        <label for="white">White</label>
-                        <input type="radio" name="ration_card" id="white" value="white" >
-                    </div>
+              <div class="form-outline mb-2">
+             <label class="form-label" for="nurseNote">Note to Nurse</label>
+            <textarea cols="3" name="nurseNote" id="nurseNote" class="form-control" required></textarea>
+             </div>
 
-                    <h3>Primary Conditions:</h3>
+               <div class="form-outline mb-2">
+             <label class="form-label" for="care_status">Care status</label>
+            <textarea cols="3" name="care_status" id="care_status" class="form-control" required></textarea>
+             </div>
 
-                    <label for="disease">Disease</label>
-                    <input type="text" name="disease" id="disease" class="form-control" required>
+             
 
-                    <label for="nurseNote">Nurse Note</label>
-                    <textarea cols="3" name="nurseNote" id="nurseNote" class="form-control" required></textarea>
+              <button type="submit" class="btn btn-success btn-lg mb-1 w-100 text-white mt-4">Submit</button>
+            </form>
 
-                    <label for="care_status">Care status</label>
-                    <input type="text" name="care_status" id="care_status" class="form-control" required>
-
-                    <button type="submit" class="btn btn-success mt-4">Submit</button>
-                </form>
-            </div>
+          </div>
         </div>
-    </div>
-</section>
+
+</div>

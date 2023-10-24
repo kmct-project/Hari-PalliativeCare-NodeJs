@@ -1,51 +1,122 @@
-<section>
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-md-6">
-                <h2 class="text-center">Add Volunteer</h2>
-                <form action="/admin/add-volunteer" enctype="multipart/form-data" method="POST">
-                    <label for="">Name</label>
-                    <input type="text" name="name" class="form-control" required>
 
-                    <label for="">Volunteer id</label>
-                    <input type="text" name="v_id" value="{{volunteerId}}" class="form-control" disabled>
+
+<style>
+    .form-control {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #3e5569;
+    background-color: #eaeaea;
+    background-clip: padding-box;
+    border: 1px solid #e9ecef;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 2px;
+    transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+}
+
+.form-select {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #3e5569;
+    vertical-align: middle;
+    background-color: #eaeaea;
+    background-image: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e);
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    border: 1px solid #e9ecef;
+    border-radius: 2px;
+    -webkit-appearance: none;
+    appearance: none;
+}
+</style>
+
+            <div class="page-wrapper">
+
+
+ <div class="card rounded-3">
+          
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Volunteer Registration</h3>
+                        <form action="/admin/add-volunteer" class="px-md-2" enctype="multipart/form-data" method="POST">
+
+            <div class="form-outline mb-2">
+             <label class="form-label" for="name">Name of the Volunteer</label>
+                <input type="text" name="name" id="name" class="form-control" required />
+             </div>
+                    <input type="hidden" name="v_id" id="v_id" value="{{volunteerId}}" class="form-control" disabled>
                     <input type="hidden" name="v_id" value="{{volunteerId}}">
 
-                    <label for="">Age</label>
-                    <input type="text" name="age" class="form-control" required>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div class="form-outline datepicker">
+                    <label for="age" class="form-label">Age</label>
+                    <input type="text"  name="age" class="form-control" id="age" required />
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                <label for="age" class="form-label">Gender</label>
+                  <select class="select form-select" name="gender">
+                    <option value="1" selected disabled>Select Gender</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                  </select>
 
-                     <label for="">Email</label>
-                    <input type="email" name="email" class="form-control" required>
+                </div>
+              </div>
 
-                     <label for="">Password</label>
-                    <input type="password" name="password" class="form-control" required>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+            <div class="form-outline mb-2">
+             <label class="form-label" for="name">Email</label>
+                <input type="email" name="email" id="email" class="form-control" required />
+             </div>
+             </div>
+                 <div class="col-md-6 mb-3">
+            <div class="form-outline mb-2">
+             <label class="form-label" for="name">Password</label>
+                <input type="password" name="password" id="password" class="form-control" required/>
+             </div>
+             </div>
+             </div>
 
-                     <label for="">Joining Date</label>
-                    <input type="date" name="joining_date" class="form-control" required>
+             <div class="row">
+                <div class="col-md-6 mb-3">
+            <div class="form-outline mb-2">
+             <label class="form-label" for="name">Joining Date</label>
+                <input type="date" name="joining_date" id="joining_date" class="form-control" required />
+             </div>
+             </div>
+                 <div class="col-md-6 mb-3">
+            <div class="form-outline mb-2">
+             <label class="form-label" for="name">Type</label>
+               <select class="select form-select" name="type">
+                    <option value="1" selected disabled>Select Your Field</option>
+                    <option value="Doctor">Doctor</option>
+                    <option value="Nurse">Nurse</option>
+                    <option value="Student">Student</option>
+                    <option value="Other">Other</option>
+                  </select>
+             </div>
+             </div>
+             </div>
+              <div class="form-outline mb-4">
+             <label class="form-label" for="name">Education</label>
+                <input type="text" name="education" id="education" class="form-control" required />
+             </div>
+              <button type="submit" class="btn btn-success btn-lg mb-1 w-100">Create</button>
 
-                    <label for="">Type</label>
-                    <div>
-                    <label for="doctor">Doctor</label>
-                    <input type="radio" name="type" id="doctor" value="Doctor" required>
+            </form>
 
-                    <label for="nurse">Nurse</label>
-                    <input type="radio" name="type" id="nurse" value="Nurse">
-
-                    <label for="student">Student</label>
-                    <input type="radio" name="type" id="student" value="Student">
-
-                    <label for="other">Other</label>
-                    <input type="radio" name="type" id="other" value="Other">
-                    </div>
-
-                    <label for="">Education</label>
-                    <input type="text" name="education" class="form-control" required>
-
-                    {{!-- <input type="hidden" name="duties" value="[]" > --}}
-
-                    <button type="submit" class="btn btn-success mt-4">Submit</button>
-                </form>
-            </div>
+          </div>
         </div>
-    </div>
-</section>
+
+</div>

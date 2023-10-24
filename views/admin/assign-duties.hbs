@@ -1,23 +1,55 @@
+<style>
+  .form-control {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #3e5569;
+    background-color: #e9ecef;
+    background-clip: padding-box;
+    border: 1px solid #e9ecef;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 2px;
+    transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+}
+</style>
 <section>
     <div class="container mt-4">
-        <div class="row">
+        <div class="row justify-content-center align-items-center">
             <div class="col-md-6">
-                <h2 class="text-center">Assign Duties</h2>
+                <h2 class="text-center mb-5">Assign Duty to {{volunteer.name}}</h2>
                 <form action="/admin/assign-duties" enctype="multipart/form-data" method="POST">
+                  <h3>Volunteer Details</h3>
                     <label for="">Name</label>
-                    <input type="text" name="name" value="{{volunteer.name}}" class="form-control" disabled>
+                    <input type="text" name="name" value="{{volunteer.name}}" class="form-control mb-2" disabled>
                     <input type="hidden" name="name" value="{{volunteer.name}}">
 
                     <label for="">Volunteer id</label>
-                    <input type="text" name="v_id" value="{{volunteer.v_id}}" class="form-control" disabled>
+                    <input type="text" name="v_id" value="{{volunteer.v_id}}" class="form-control mb-2" disabled>
                     <input type="hidden" name="v_id" value="{{volunteer.v_id}}">
 
+                     <label for="">Volunteer Gender</label>
+                    <input type="hidden" name="gender" value="{{volunteer.gender}}" class="form-control mb-2" disabled>
+                    <input type="hidden" name="gender" value="{{volunteer.gender}}">
+
+                        <label for="">Email</label>
+                    <input type="hidden" name="email"  value="{{volunteer.email}}" class="form-control mb-2" disabled>
+                     <input type="hidden" name="email" value="{{volunteer.email}}">
+
                     <label for="">Type</label>
-                    <input type="text" name="type"  value="{{volunteer.type}}" class="form-control" disabled>
+                    <input type="text" name="type"  value="{{volunteer.type}}" class="form-control mb-2" disabled>
                      <input type="hidden" name="type" value="{{volunteer.type}}">
 
-                    <label for="">Patient Id</label>
-                    <input type="text" id="patients" name="p_id" class="form-control" list="patients_list" required>
+                
+
+                    <hr>
+                    <h3>Patient Details</h3>
+
+                        <label for="">Patient Id</label>
+                    <input type="text" id="patients" name="p_id" class="form-control mb-2" list="patients_list" placeholder="Select a Patient" required>
                         <datalist id="patients_list">
                         {{#each patients}}
                             <option value="{{p_id}}" data-id="{{p_id}}" data-name="{{name}}" data-disease="{{disease}}"
@@ -26,25 +58,24 @@
                         {{/each}}
                         </datalist>
                     
-                    <button id="showDetailsButton" type="button">Show Details</button>
+                    <button class="btn btn-dark" id="showDetailsButton" type="button">Click Here To Display Patient Details</button><br><br>
 
-                    <label for="patientDetails">Patient Details</label>
                     <label for="">PatientName</label>
-                    <input type="text" id="patientName" name="patientName" class="form-control" readonly>
+                    <input type="text" id="patientName" name="patientName" class="form-control mb-2" readonly>
                     <label for="">Disease</label>
-                    <input type="text" id="patientDisease" class="form-control" readonly>
+                    <input type="text" id="patientDisease" class="form-control mb-2" readonly>
                     <label for="">Panchayath</label>
-                    <input type="text" id="patientPanchayath" class="form-control" readonly>
+                    <input type="text" id="patientPanchayath" class="form-control mb-2" readonly>
                     <label for="">ward</label>
-                    <input type="text" id="patientWard" class="form-control" readonly>
+                    <input type="text" id="patientWard" class="form-control mb-2" readonly>
                     <label for="">care status</label>
-                    <input type="text" id="patientCare_status" class="form-control" readonly>
+                    <input type="text" id="patientCare_status" class="form-control mb-2" readonly>
                     <label for="">nurse Note</label>
-                    <textarea cols="3"  id="patientNurseNote" name="nurseNote" class="form-control" readonly> </textarea>
+                    <textarea cols="3"  id="patientNurseNote" name="nurseNote" class="form-control mb-2" readonly> </textarea>
                     <label for="">guardian nome</label>
-                    <input type="text" id="patientG_name"  name ="patientG_name" class="form-control" readonly>
+                    <input type="text" id="patientG_name"  name ="patientG_name" class="form-control mb-2" readonly>
                     <label for="">guardian mobile</label>
-                    <input type="text" id="patientG_mobile" name="patientG_mobile" class="form-control" readonly>
+                    <input type="text" id="patientG_mobile" name="patientG_mobile" class="form-control mb-2" readonly>
                     <input type="hidden" id="currentDate" name="currentDate">
                     <input type="hidden" id="dutyId" name="dutyId" >
                     
@@ -52,7 +83,7 @@
                     <div id="error-message" class="text-danger"></div>
 
 
-                    <button type="submit" class="btn btn-success mt-4">Submit</button>
+                    <button type="submit" class="btn btn-success mt-4 mb-5 w-100 text-white">Assign Duty</button>
                 </form>
             </div>
         </div>

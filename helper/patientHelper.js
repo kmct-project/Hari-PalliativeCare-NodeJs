@@ -27,9 +27,7 @@ module.exports = {
               const matchingDuties = volunteer.duties.filter(duty => duty.p_id == pId);
               return result.concat(matchingDuties);
             }, []);
-          
-            // console.log(filteredDuties ,pId);
-            resolve(filteredDuties);
+              resolve(filteredDuties);
           });
 
       },

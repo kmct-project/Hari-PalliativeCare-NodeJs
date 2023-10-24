@@ -1,0 +1,50 @@
+
+
+            <div class="page-wrapper">
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Manage Volunteer's Duties</h4>
+                <div class="ms-auto text-end">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="zero_config" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                               <th>No.</th>
+                             <th>joining Date</th>
+                            <th>Receipt No</th>
+                            <th>Name</th>
+                           <th>Age</th>
+                            <th>Type</th>
+                            <th>No.Duties</th>
+                              <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {{#each volunteers}}
+                            <tr>
+                                <td>{{incremented @index}}</td>
+                               <td>{{this.joining_date}}</td>
+                            <td>{{this.v_id}}</td>
+                            <td>{{this.name}}</td>
+                              <td>{{this.age}}</td>
+                            <td>{{this.type}}</td>
+                            <td>{{this.duties.length}}</td>
+                            <td><a href="/admin/assign-duties/{{this.v_id}}" class="btn btn-dark">Assign Duty</a></td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

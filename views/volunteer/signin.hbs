@@ -1,26 +1,38 @@
-<div class="row mx-auto">
-    <div class="col-md-6 mx-auto">
-        <div class="container mt-5">
-            <h2 class="text-center">Sign In</h2>
-            <form action="/volunteer/signin" method="POST">
-                {{#if signInErr}}
-                    <div class="alert alert-danger" role="alert">
-                        <p class="error alert-heading">{{signInErr}}</p>
-                    </div>
+
+
+
+<style>
+    .loginBox input[type="text"], .loginBox input[type="password"] {
+    border: none;
+    border-bottom: 2px solid #ffffff;
+    outline: none;
+    height: 40px;
+    color: #000;
+    background: #d2d2d2;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+    body{margin: 0;padding: 0;background: url("/assets/img/hero-bg.jpg") no-repeat;height: 100vh;background-size: cover;background-repeat: no-repeat;background-position: center;overflow: hidden}@media screen and (max-width: 600px;){body{background-size: cover;: fixed}}#particles-js{height: 100%}.loginBox{position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);width: 350px;min-height: 200px;background: #ffffff;border-radius: 10px;padding: 40px;box-sizing: border-box}.user{margin: 0 auto;display: block;margin-bottom: 20px}h3{margin: 0;padding: 0 0 20px;color: #59238F;text-align: center}.loginBox input{width: 100%;margin-bottom: 20px}.loginBox input[type="text"]:hover, .loginBox input[type="password"]:hover{color: #000000;border: 1px solid #000000;box-shadow: 0 0 5px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 0, 0, 0.1), 0 2px 0 rgb(255, 255, 255)}.loginBox input[type="text"]:focus, .loginBox input[type="password"]:focus{border-bottom: 2px solid #42F3FA}.inputBox{position: relative}.inputBox span{position: absolute;top: 10px;color: #262626}.loginBox input[type="submit"]{border: none;outline: none;height: 40px;font-size: 16px;background: #156dda;color: #fff;border-radius: 20px;cursor: pointer}.loginBox a{color: #262626;font-size: 14px;font-weight: normal;text-decoration: none;text-align: center;display: block}a:hover{color: #0044b0}p{color: #0000ff}
+</style>
+
+<div class="loginBox"> <img class="user" src="https://i.ibb.co/yVGxFPR/2.png" height="100px" width="100px">
+
+        <h3>Volunteers Signin</h3>
+         {{#if signInErr}}
+             <p class="text-danger text-center">{{signInErr}}</p>
                 {{/if}}
-                <div class="form-group mt-4">
-                    <label>Email address</label>
-                    <input type="email" class="form-control" name="email" placeholder="Enter Email">
-                </div>
-                <div class="form-group mt-4">
-                    <label>Password</label>
-                    <input type="password" class="form-control" name="password" placeholder="Password">
-                </div>
-                <div class="row">
-                    <a href="/volunteer/add-volunteer" class="mt-4">Create a New Account ?</a> 
-                    <button type="submit" class="btn btn-primary mt-2">Sign Up</button>
-                </div>
-            </form>
-        </div>
+            <form action="/volunteer/signin" method="POST">
+            <div class="inputBox">
+                <label>Email</label>
+                 <input id="uname" type="text"name="email" placeholder="Email"> 
+                <label>Password</label>
+                 <input id="pass" type="password" name="password" placeholder="Password"> </div>
+                  
+                  <input type="submit" value="Login">
+        </form> 
+        <a href="/volunteer/add-volunteer">Don't Have an Account? Register Now<br> </a>
+    
+        
     </div>
-</div>

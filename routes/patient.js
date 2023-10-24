@@ -63,7 +63,7 @@ router.post("/signin", function (req, res) {
       res.redirect("/patient");
     } else {
       req.session.signInErr = "Invalid Email/Password";
-      res.redirect("/signin");
+      res.redirect("/patient/signin");
     }
   });
 });

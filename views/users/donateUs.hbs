@@ -1,54 +1,44 @@
 
-    <div class="container mt-5">
-        <h1>Donation Us</h1>
-        <form action="/donateUs" method="POST">
-            <!-- Donor Name -->
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" class="form-control" id="name" name="name" required>
-            </div>
-        
-            <!-- Donation Month -->
-                <div class="form-group">
-                    <label for="month">Month:</label>
-                    <select class="form-control" id="month" name="month" required>
-                        <option value="January">January</option>
-                        <option value="February">February</option>
-                        <option value="March">March</option>
-                        <option value="April">April</option>
-                        <option value="May">May</option>
-                        <option value="June">June</option>
-                        <option value="July">July</option>
-                        <option value="August">August</option>
-                        <option value="September">September</option>
-                        <option value="October">October</option>
-                        <option value="November">November</option>
-                        <option value="December">December</option>
-                    </select>
-                </div>
+   
 
-            
-            <!-- Donation Year -->
-            <div class="form-group">
-                <label for="year">Year:</label>
-                <input type="text" class="form-control" id="year" name="year" required>
-            </div>
-            
-            <!-- Donation Date -->
-            <div class="form-group">
-                <label for="date">Date:</label>
-                <input type="date" class="form-control" id="date" name="date" required>
-            </div>
-            
-            <!-- Donation Amount -->
-            <div class="form-group">
-                <label for="amount">Amount:</label>
-                <input type="text" class="form-control" id="amount" name="amount" required>
-            </div>
-            <input type="hidden" value="{{donationId}}" name="d_id" />
-            <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary">Submit Donation</button>
-        </form>
+
+
+    <style>
+    .loginBox input[type="text"], .loginBox input[type="number"] {
+    border: none;
+    border-bottom: 2px solid #ffffff;
+    outline: none;
+    height: 40px;
+    color: #000;
+    background: #d2d2d2;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+    body{margin: 0;padding: 0;background: url("/assets/img/hero-bg.jpg") no-repeat;height: 100vh;background-size: cover;background-repeat: no-repeat;background-position: center;overflow: hidden}@media screen and (max-width: 600px;){body{background-size: cover;: fixed}}#particles-js{height: 100%}.loginBox{position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);width: 350px;min-height: 200px;background: #ffffff;border-radius: 10px;padding: 40px;box-sizing: border-box}.user{margin: 0 auto;display: block;margin-bottom: 20px}h3{margin: 0;padding: 0 0 20px;color: #59238F;text-align: center}.loginBox input{width: 100%;margin-bottom: 20px}
+    
+    .loginBox input[type="text"]:hover, .loginBox input[type="number"]:hover{color: #000000;border: 1px solid #000000;box-shadow: 0 0 5px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 0, 0, 0.1), 0 2px 0 rgb(255, 255, 255)}
+    
+    .loginBox input[type="text"]:focus, .loginBox input[type="number"]:focus{border-bottom: 2px solid #42F3FA}.inputBox{position: relative}.inputBox span{position: absolute;top: 10px;color: #262626}.loginBox input[type="submit"]{border: none;outline: none;height: 40px;font-size: 16px;background: #156dda;color: #fff;border-radius: 20px;cursor: pointer}.loginBox a{color: #262626;font-size: 14px;font-weight: bold;text-decoration: none;text-align: center;display: block}a:hover{color: #00ffff}p{color: #0000ff}
+</style>
+
+
+
+<div class="loginBox"> <img class="user" src="https://i.ibb.co/FJMMXBq/donation.png" height="100px" width="100px">
+        <h3>Donate Us Now</h3>
+        <form action="/donateUs" method="POST">
+
+            <div class="inputBox"> 
+                <input id="name" type="text" name="name" placeholder="Your Name"> 
+                <input id="amount" type="number" name="amount" placeholder="Donation Amount">
+                            <input type="hidden" value="{{donationId}}" name="d_id" />
+                 </div>
+                
+                 <input type="submit" name="" value="submit">
+        </form> 
+      
+        
     </div>
 
 

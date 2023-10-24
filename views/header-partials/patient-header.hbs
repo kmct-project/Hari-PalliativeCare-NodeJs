@@ -1,0 +1,22 @@
+  <!-- ======= Header ======= -->
+  <header id="header" class="">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo me-auto"><a href="#!">Patient - Palliative Care</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+            {{#if patient}}
+          <li><a class="nav-link scrollto" href="#!">{{patient.name}}</a></li>
+            
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+      <a href="/patient/signout" class="appointment-btn scrollto bg-danger"><span class="d-none d-md-inline">Logout</span></a>
+          {{/if}}
+
+    </div>
+  </header><!-- End Header -->

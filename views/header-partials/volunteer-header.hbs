@@ -1,37 +1,22 @@
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Volunteer Panel</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                {{#if volunteer}}
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/volunteer">Home</a>
-                    </li>
-                    {{!-- <li class="nav-item">
-                        <a class="nav-link" href="/admin/all-patient">All Products</a>
-                    </li> --}}
-                    {{!-- <li class="nav-item">
-                        <a class="nav-link" href="/admin/add-patient">Add Patient</a> 
-                    </li> --}}
-                  
-                    
-                </ul>
-                {{/if}}
+  <!-- ======= Header ======= -->
+  <header id="header" class="">
+    <div class="container d-flex align-items-center">
 
-                {{#if volunteer}}
-                <a href="#" class="btn btn-secondary ms-3">{{volunteer.name}}</a>
-                <a href="/admin/signout" class="btn btn-outline-secondary ms-3">Sign Out</a>
-                {{else}}
-                <a href="/admin/signup" class="btn btn-secondary ms-3">Sign Up</a>
-                <a href="/admin/signin" class="btn btn-outline-secondary ms-3">Sign In</a>
-                {{/if}}
-            </div>
-        </div>
-    </nav>
-</header>
+      <h1 class="logo me-auto"><a href="#!">Volunteer - Palliative Care</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+            {{#if volunteer}}
+          <li><a class="nav-link scrollto" href="#!">{{volunteer.name}}</a></li>
+            
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+      <a href="/volunteer/signout" class="appointment-btn scrollto bg-danger"><span class="d-none d-md-inline">Logout</span></a>
+          {{/if}}
+
+    </div>
+  </header><!-- End Header -->

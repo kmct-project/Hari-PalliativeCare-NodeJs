@@ -1,7 +1,9 @@
+<br><br><br>
 <div class="row mx-auto">
     <div class="col-md-6 mx-auto">
+        <div class="card shadow-lg p-3">
         <div class="container mt-5">
-            <h2 class="text-center">Sign In</h2>
+            <h2 class="text-center">Welcome Back To Admin Panel Sign In</h2>
             <form action="/admin/signin" method="POST">
                 {{#if signInErr}}
                     <div class="alert alert-danger" role="alert">
@@ -16,11 +18,12 @@
                     <label>Password</label>
                     <input type="password" class="form-control" name="Password" placeholder="Password">
                 </div>
-                <div class="row">
+                <div class="row mb-4">
                     <a href="/admin/signup" class="mt-4">Create a New Account ?</a>
                     <button type="submit" class="btn btn-primary mt-2">Sign Up</button>
                 </div>
             </form>
+        </div>
         </div>
     </div>
 </div>

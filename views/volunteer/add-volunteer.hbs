@@ -1,56 +1,107 @@
-<section>
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-md-6">
-                <h2 class="text-center">Add Volunteer</h2>
-                <form action="/volunteer/add-volunteer" enctype="multipart/form-data" method="POST">
-                    <label for="">Name</label>
-                    <input type="text" name="name" class="form-control" required>
 
-                    <label for="">Volunteer id</label>
-                    <input type="text" name="v_id" value="{{volunteerId}}" class="form-control" disabled>
+
+<style>
+    @media (min-width: 1025px) {
+.h-custom {
+height: 100vh !important;
+}
+}
+</style>
+<section class="mt-0" style="background-color: #8fc4b7;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-8 col-xl-6">
+        <div class="card rounded-3">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
+            class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+            alt="Sample photo">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Volunteer Registration</h3>
+            <form action="/volunteer/add-volunteer" class="px-md-2" enctype="multipart/form-data" method="POST">
+
+            <div class="form-outline mb-2">
+             <label class="form-label" for="name">Name of the Volunteer</label>
+                <input type="text" name="name" id="name" class="form-control" required />
+             </div>
+                    <input type="hidden" name="v_id" id="v_id" value="{{volunteerId}}" class="form-control" disabled>
                     <input type="hidden" name="v_id" value="{{volunteerId}}">
 
-                    <label for="">Age</label>
-                    <input type="text" name="age" class="form-control" required>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div class="form-outline datepicker">
+                    <label for="age" class="form-label">Age</label>
+                    <input type="text"  name="age" class="form-control" id="age" required />
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                <label for="age" class="form-label">Gender</label>
+                  <select class="select form-select" name="gender">
+                    <option value="1" selected disabled>Select Gender</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                  </select>
 
-                     <label for="">Email</label>
-                    <input type="email" name="email" class="form-control" required>
+                </div>
+              </div>
 
-                     <label for="">Password</label>
-                    <input type="password" name="password" class="form-control" required>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+            <div class="form-outline mb-2">
+             <label class="form-label" for="name">Email</label>
+                <input type="email" name="email" id="email" class="form-control" required />
+             </div>
+             </div>
+                 <div class="col-md-6 mb-3">
+            <div class="form-outline mb-2">
+             <label class="form-label" for="name">Password</label>
+                <input type="password" name="password" id="password" class="form-control" required/>
+             </div>
+             </div>
+             </div>
 
-                     <label for="">Joining Date</label>
-                    <input type="date" name="joining_date" class="form-control" required>
+             <div class="row">
+                <div class="col-md-6 mb-3">
+            <div class="form-outline mb-2">
+             <label class="form-label" for="name">Joining Date</label>
+                <input type="date" name="joining_date" id="joining_date" class="form-control" required />
+             </div>
+             </div>
+                 <div class="col-md-6 mb-3">
+            <div class="form-outline mb-2">
+             <label class="form-label" for="name">Type</label>
+               <select class="select form-select" name="type">
+                    <option value="1" selected disabled>Select Your Field</option>
+                    <option value="Doctor">Doctor</option>
+                    <option value="Nurse">Nurse</option>
+                    <option value="Student">Student</option>
+                    <option value="Other">Other</option>
+                  </select>
+             </div>
+             </div>
+             </div>
 
-                    <label for="">Type</label>
-                    <div>
-                    <label for="doctor">Doctor</label>
-                    <input type="radio" name="type" id="doctor" value="Doctor" required>
+              
+              <div class="form-outline mb-2">
+             <label class="form-label" for="name">Education</label>
+                <input type="text" name="education" id="education" class="form-control" required />
+             </div>
 
-                    <label for="nurse">Nurse</label>
-                    <input type="radio" name="type" id="nurse" value="Nurse">
+    
 
-                    <label for="student">Student</label>
-                    <input type="radio" name="type" id="student" value="Student">
-
-                    <label for="other">Other</label>
-                    <input type="radio" name="type" id="other" value="Other">
-                    </div>
-
-                    <label for="">Education</label>
-                    <input type="text" name="education" class="form-control" required>
-
-                    {{!-- <input type="hidden" name="duties" value="[]" > --}}
-
-                    <div id="warningMessage" class="alert alert-warning">
+              <div id="warningMessage" class="alert alert-warning">
                    The admin will contact the volunteer to confirm their interest,
                     and if everything is in order, they will then accept the volunteer application.
                     </div>
+            
 
-                    <button type="submit" class="btn btn-success mt-4">Submit</button>
-                </form>
-            </div>
+              <button type="submit" class="btn btn-success btn-lg mb-1 w-100">Submit</button>
+
+            </form>
+
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </section>
+

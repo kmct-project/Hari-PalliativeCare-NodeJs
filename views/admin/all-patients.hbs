@@ -1,28 +1,49 @@
- <div class="table-responsive-md mt-2">
-                <table class="table responsive">
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col">No.</th>
-                             <th scope="col">PatientId</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Panchayath</th>
-                            <th scope="col">Ward</th>
-                            <th scope="col">Disease</th>
-                            <th scope="col">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+
+            <div class="page-wrapper">
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Manage Patients</h4>
+                <div class="ms-auto text-end">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <a href="/admin/add-patient" class="btn btn-primary mb-3">+ Add Patient</a>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="zero_config" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                             <th>No.</th>
+                             <th>PatientId</th>
+                            <th>Name</th>
+                            <th>Panchayath</th>
+                            <th>Ward</th>
+                            <th>Disease</th>
+                            <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                         {{#each patients}}
-                        <tr class="align-middle">
-                            <th scope="row">{{incremented @index}}</th>
-                            <td>{{this.p_id}}</td>
+                            <tr>
+                                <td>{{incremented @index}}</td>
+                                <td>{{this.p_id}}</td>
                             <td>{{this.name}}</td>
                             <td>{{this.panchayath}}</td>
                             <td>{{this.wardNo}}</td>
                             <td>{{this.disease}}</td>
                             <td>{{this.care_status}}</td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
+
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
             </div>
+        </div>
+    </div>
+</div>

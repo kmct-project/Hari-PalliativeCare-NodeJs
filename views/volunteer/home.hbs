@@ -1,94 +1,65 @@
-<section>
-    <div class="container mt-5">
+
+
+
+
+
+<div class="container">
+
+<div class="page-wrapper mt-4">
+    <div class="page-breadcrumb">
         <div class="row">
-            {{!-- <div class="col-2">
-                <a href="/admin/add-product" class="btn btn-success mb-2">Add a Product</a>
-                <a href="/admin/delete-all-products" onclick="return confirm('Are You Sure to Delete All Products ?')"
-                    class="btn btn-danger">Delete All Products</a>
-            </div> --}}
-               <div class="count-card">
-                    <h5>Total Duties</h5>
-                    <img src="/images/Patients.png" alt="Patients" class="patient-image">
-                    <h3>{{duties.duties.length}}</h3>
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Your Duties</h4><br><br>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="col-lg-2">
+
+               <div class="card card-hover card-sm mb-3">
+                <div class="box bg-dark text-center">
+                  <h1 class="font-light text-white">
+                    <i class="bi bi-people"></i>
+                  </h1>
+                  <h6 class="text-white">Total Duties</h6>
+                  <h3 class="text-white"><b>{{duties.duties.length}}</b></h3>
                 </div>
-
-            {{!-- <H3></H3>
-            <div class="manage-card"> 
-                <a href="/assign-duties" class="no-underline"> 
-                  <img src="/images/assign.png" height="50px" width="50px">
-                    Assign Duties
-                </a>
-
-            </div>  --}}
-            
-
-            <H2>Duties</H2>
-            <div class="table-responsive-md mt-2">
-                <table class="table responsive">
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col">No.</th>
-                             <th scope="col">date</th>
-                             <th scope="col">Patient Id</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">guardian name</th>
-                            <th scope="col">guardian phone</th>
-                            {{!-- <th scope="col" >dutyId</th> --}}
-                            <th scope="col">Action</th>
-                            <th scope="col">NurseNote</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+              </div>
+              </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="zero_config" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                            <th>No.</th>
+                             <th>date</th>
+                             <th>Patient Id</th>
+                            <th>Name</th>
+                            <th>guardian name</th>
+                            <th>guardian phone</th>
+                            <th>NurseNote</th>
+                            <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                         {{#each duties.duties}}
-                        <tr class="align-middle">
-                            <th scope="row">{{incremented @index}}</th>
-                            <td>{{this.currentDate}}</td>
+                            <tr>
+                            <td>{{incremented @index}}</td>
+                             <td>{{this.currentDate}}</td>
                             <td>{{this.p_id}}</td>
                             <td>{{this.name}}</td>
                             <td>{{this.patientG_name}}</td>
                             <td>{{this.patientG_mobile}}</td>
-                            <td><a href="volunteer/complete-duties/{{this.v_id}}/{{@index}}" class="no-underline"> Complete </a></td>
                             <td>{{this.nurseNote}}</td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
+                            <td><a href="volunteer/complete-duties/{{this.v_id}}/{{@index}}" class="btn btn-success text-white"> Complete </a></td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</section>
-<style>
-.count-card {
-    border: 2px solid #ccc; 
-    text-align: center; 
-    padding: 20px; 
-    width: 200px; 
-    margin-right: 10px; 
-    display: inline-block; 
-}
-.font-8{
-    font-size: 5;
-    color: #ccc;
-}
-
-.patient-image {
-    height: 80px; 
-    width: 80px; 
-    display: block; 
-    margin: 0 auto 10px; 
-}
-.manage-card {
-    border: 2px solid #50fc0056;
-    text-align: center; 
-    padding: 10px; 
-    width: 200px; 
-    margin-right: 10px; 
-    display: inline-block; 
-}
-.no-underline {
-    text-decoration: none;
-    color: blue; 
-    font-weight: bold; /* Make the text bold, for example */
-}
-
-</style>
+</div>
+</div>

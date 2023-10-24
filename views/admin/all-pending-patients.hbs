@@ -1,46 +1,64 @@
-<section>
-    <div class="container mt-5">
+
+
+
+
+
+            <div class="page-wrapper">
+    <div class="page-breadcrumb">
         <div class="row">
-            
-            <div class="table-responsive-md mt-2">
-                <table class="table responsive">
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col">No.</th>
-                            <th scope="col">Id</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Address </th>
-                            <th scope="col">Disease</th>
-                            <th scope="col">Ration Card</th>
-                            <th scope="col">Guardian Mobile</th>
-                            <th scope="col">Nurse Note</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Requested Patients List</h4>
+                <div class="ms-auto text-end">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="zero_config" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                         <th>No.</th>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Address </th>
+                            <th>Disease</th>
+                            <th>Ration Card</th>
+                            <th>Guardian Mobile</th>
+                            <th>Nurse Note</th>
+                            <th>Approve</th>
+                            <th>Reject</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
                         {{#each patient}}
-                        <tr class="align-middle">
-                            <th scope="row">{{incremented @index}}</th>
-                            <td>{{this.p_id}}</td>
+                            <tr>
+                                <td>{{incremented @index}}</td>
+                              <td>{{this.p_id}}</td>
                             <td>{{this.name}}</td>
                             <td>{{this.address}}</td>
                             <td>{{this.disease}}</td>
                             <td>{{ration_card}}</td>
                             <td>{{this.g_mobile}}</td>
                             <td>{{this.nurseNote}}</td>
-                            <td><a href="/admin/approvalPatient/{{this.p_id}}" class="no-underline"> 
+                            <td><a href="/admin/approvalPatient/{{this.p_id}}" class="btn btn-success text-white"> 
                                 Approval
                                 </a>
                             </td>
-                             <td><a  class="btn btn-danger" href="/admin/rejectionPatient/{{this.p_id}}" class="no-underline"> 
+                             <td><a  class="btn btn-danger" href="/admin/rejectionPatient/{{this.p_id}}"> 
                                 rejection
                                 </a>
                             </td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</section>
+</div>
