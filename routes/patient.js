@@ -20,7 +20,13 @@ router.get("/",verifySignedIn, async function (req, res, next) {
   let volunteers = await adminHelper.getAllVolunteer()
   
   patientHelper.getPatientScheduleById(patient.p_id, volunteers).then((duties)=>{
-    res.render("patient/home", { admin: false,  patient ,duties});
+    let pending;
+    if(patient.status=="pending"){
+      pending=true;
+    }else{
+      pending=false;
+    }
+    res.render("patient/home", { admin: false,  patient ,duties,pending});
   })
 });
 

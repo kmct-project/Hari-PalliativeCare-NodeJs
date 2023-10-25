@@ -18,7 +18,13 @@ router.get("/",verifySignedIn, async function (req, res, next) {
   let volunteer = req.session.volunteer;
   // console.log(volunteer.v_id, "jjjjj")
   volunteerHelper.getVolunteerDutiesById(volunteer.v_id).then((duties)=>{
-    res.render("volunteer/home", { admin: false,  volunteer ,duties});
+    let pending;
+    if( volunteer.status=="pending"){
+      pending=true;
+    }else{
+      pending=false;
+    }
+    res.render("volunteer/home", { admin: false,  volunteer ,duties ,pending});
   })
   
  

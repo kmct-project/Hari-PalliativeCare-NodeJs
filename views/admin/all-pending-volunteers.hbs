@@ -26,7 +26,7 @@
                              <th>Gender</th>
                             <th>Type</th>
                             <th>status</th>
-                            <th>Action</th>
+                            <th colspan="2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,6 +41,10 @@
                             <td>{{this.type}}</td>
                             <td>{{this.status}}</td>
                             <td><a href="/admin/approval/{{this.v_id}}" class="btn btn-success text-white"> 
+                                Approval
+                                </a>
+                            </td>
+                            <td><a href="/admin/reject/{{this.v_id}}" class="btn btn-danger text-white"> 
                                 Approval
                                 </a>
                             </td>

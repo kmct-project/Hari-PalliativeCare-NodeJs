@@ -21,7 +21,7 @@ module.exports = {
     
       },
       getPatientScheduleById:(pId,volunteers)=>{
-        // console.log("sss",volunteers,"eeendd")
+        // console.log("sss",volunteers,pId,"eeendd")
         return new Promise(async (resolve, reject) => {
             const filteredDuties = volunteers.reduce((result, volunteer) => {
               const matchingDuties = volunteer.duties.filter(duty => duty.p_id == pId);

@@ -53,7 +53,13 @@ router.get("/approval/:vid",async function (req, res) {
     res.redirect("/admin")
   })
 });
-
+router.get("/reject/:vid",async function (req, res) {
+  console.log("ggg")
+  let v_id = req.params.vid;
+  await adminHelper.rejectionVolunteer(v_id).then((resp)=>{
+    res.redirect("/admin")
+  })
+});
 router.get("/approvalPatient/:pid",async function (req, res) {
   console.log("ggg")
   let p_id = req.params.pid;
@@ -63,7 +69,7 @@ router.get("/approvalPatient/:pid",async function (req, res) {
 });
 router.get("/rejectionPatient/:pid",async function (req, res) {
   let p_id = req.params.pid;
-  await adminHelper.approvePatient(p_id).then((resp)=>{
+  await adminHelper.rejectionPatient(p_id).then((resp)=>{
     res.redirect("/admin")
   })
 });

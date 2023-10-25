@@ -14,6 +14,17 @@
         </div>
     </div>
     <div class="container-fluid">
+        {{#if pending}}
+        <button class="btn btn-success mb-3">Account Status : Pending</button><br>
+        <div class="card">
+            <div class="card-body">
+                <div id="warningMessage" class="alert alert-warning">
+                  Please contact admin to verify your volunteer application.
+                    </div>
+
+            </div>
+        </div>
+        {{else}}
         <div class="col-lg-2">
 
                <div class="card card-hover card-sm mb-3">
@@ -60,6 +71,7 @@
                 </div>
             </div>
         </div>
+        {{/if}}
     </div>
 </div>
 </div>

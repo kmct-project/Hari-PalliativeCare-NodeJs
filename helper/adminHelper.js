@@ -97,8 +97,8 @@ module.exports = {
       let patients = await db
         .get()
         .collection(collections.PATIENT_COLLECTION)
-        .find()
-        .toArray({status:"approved"});
+        .find({status:"approved"})
+        .toArray();
       resolve(patients);
     });
   },
