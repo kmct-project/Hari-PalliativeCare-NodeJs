@@ -30,6 +30,7 @@ router.get("/",verifySignedIn, async function (req, res, next) {
   })
 });
 
+
 router.get("/signup", function async(req, res) {
   if (req.session.signedIn) {
     res.redirect("/");
@@ -86,8 +87,20 @@ router.post("/add-patient", function (req, res) {
   })
 });
 
-
-
+router.get("/check-email", async function (req, res) {
+  console.log("ggggggggg")
+  let email= req.query.email;
+  patientHelper.existEmail(email).then((data)=>{
+    res.json({ exists: data });
+  })
+});
+router.get("/check-mobile", async function (req, res) {
+  console.log("ggggggggg")
+  let mobile= req.query.mobile;
+  patientHelper.existEmail(mobile).then((data)=>{
+    res.json({ exists: data });
+  })
+});
 router.get("/add-patient", verifySignedIn,async function (req, res) {
   let volunteer = req.session.volunteer;
   let patientId = await adminHelper.getPatientIdFromSeries().then((id)=>id)

@@ -31,6 +31,28 @@ module.exports = {
           });
 
       },
+      existEmail:(email)=>{
+        return new Promise(async (resolve, reject) => {
+           let existEmail=await  db.get().collection(collections.PATIENT_COLLECTION).findOne({email:email})
+            if(existEmail){
+              resolve(true)
+            }else{
+              resolve(false)
+            }
+        });
+
+      },
+   existMobile:(mobile)=>{
+    return new Promise(async (resolve, reject) => {
+      let existMobile=await  db.get().collection(collections.PATIENT_COLLECTION).findOne({g_mobile:mobile})
+       if(existMobile){
+         resolve(true)
+       }else{
+         resolve(false)
+       }
+   });
+
+   },
   getVolunteerDutiesById:(vId)=>{
     return new Promise(async (resolve, reject) => {
       const volunteer = await db.get().collection(collections.VOLUNTEER_COLLECTION).findOne({ v_id: vId });

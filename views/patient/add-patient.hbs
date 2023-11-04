@@ -1,138 +1,199 @@
-
-
 <style>
     @media (min-width: 1025px) {
-.h-custom {
-height: 100vh !important;
-}
-}
+        .h-custom {
+            height: 100vh !important;
+        }
+    }
 </style>
 <section class="mt-0" style="background-color: #8fc4b7;">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-lg-8 col-xl-6">
-        <div class="card rounded-3">
-          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
-            class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
-            alt="Sample photo">
-          <div class="card-body p-4 p-md-5">
-            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Registration Info</h3>
-                <form action="/patient/add-patient" class="px-md-2" enctype="multipart/form-data" method="POST">
-
-            <div class="form-outline mb-2">
-             <label class="form-label" for="name">Name of the Patient</label>
-                <input type="text" name="name" id="name" class="form-control" required />
-             </div>
-                    <input type="hidden" name="p_id" id="p_id" value="{{pId}}" class="form-control" disabled>
-                    <input type="hidden" name="p_id" value="{{pId}}">
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <div class="form-outline datepicker">
-                    <label for="age" class="form-label">Age</label>
-                    <input type="text"  name="age" class="form-control" id="age" required />
-                  </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                <label for="age" class="form-label">Gender</label>
-                  <select class="select form-select" name="gender">
-                    <option value="1" selected disabled>Select Gender</option>
-                    <option value="Female">Female</option>
-                    <option value="Male">Male</option>
-                  </select>
-
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6 mb-3">
-            <div class="form-outline mb-2">
-             <label class="form-label" for="name">Email</label>
-                <input type="email" name="email" id="email" class="form-control" required />
-             </div>
-             </div>
-                 <div class="col-md-6 mb-3">
-            <div class="form-outline mb-2">
-             <label class="form-label" for="name">Password</label>
-                <input type="password" name="password" id="password" class="form-control" required/>
-             </div>
-             </div>
-             </div>
-
-             <div class="row">
-                <div class="col-md-6 mb-3">
-            <div class="form-outline mb-2">
-             <label class="form-label" for="name">Panchayath</label>
-                <input type="text" name="panchayath" id="panchayath" class="form-control" required />
-             </div>
-             </div>
-                 <div class="col-md-6 mb-3">
-            <div class="form-outline mb-2">
-             <label class="form-label" for="name">Ward No</label>
-                <input type="number" name="wardNo" id="wardNo" class="form-control" required/>
-             </div>
-             </div>
-             </div>
-
-                <div class="row">
-                <div class="col-md-6 mb-3">
-            <div class="form-outline mb-2">
-             <label class="form-label" for="name">Guardian's Name</label>
-                <input type="text" name="g_name" id="g_name" class="form-control" required />
-             </div>
-             </div>
-                 <div class="col-md-6 mb-3">
-            <div class="form-outline mb-2">
-             <label class="form-label" for="name">Guardian's Phone Number</label>
-                <input type="number" name="g_mobile" id="g_mobile" class="form-control" required/>
-             </div>
-             </div>
-             </div>
-
-              <div class="form-outline mb-2">
-             <label class="form-label" for="name">Address</label>
-                <input type="text" name="address" id="address" class="form-control" required />
-             </div>
-
-                 <label for="age" class="form-label">Ration Card</label>
-                  <select class="select form-select" name="ration_card">
-                    <option value="1" selected disabled>Select Ration Card Color</option>
-                    <option value="yellow">Yellow</option>
-                    <option value="pink">Pink</option>
-                    <option value="blue">Blue</option>
-                    <option value="white">White</option>
-                  </select>
-
-                  <hr>
-                  <h4>Primary Conditions</h4>
-        
-            <div class="form-outline mb-2">
-             <label class="form-label" for="Disease">Disease</label>
-                <input type="text" name="disease" id="disease" class="form-control" required />
-             </div>
-
-              <div class="form-outline mb-2">
-             <label class="form-label" for="nurseNote">Note to Nurse</label>
-            <textarea cols="3" name="nurseNote" id="nurseNote" class="form-control" required></textarea>
-             </div>
-
-               <div class="form-outline mb-2">
-             <label class="form-label" for="care_status">Care status</label>
-            <textarea cols="3" name="care_status" id="care_status" class="form-control" required></textarea>
-             </div>
-
-              <div id="warningMessage" class="alert alert-warning">
-                   The admin will contact the patient to confirm their interest,
-                    and if everything is in order, they will then accept the patient application.
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-8 col-xl-6">
+                <div class="card rounded-3">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
+                        class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+                        alt="Sample photo">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Registration Info</h3>
+                        <form action="/patient/add-patient" class="px-md-2" enctype="multipart/form-data" method="POST" onsubmit="return validateForm()">
+                            <!-- Name input -->
+                            <div class="form-outline mb-2">
+                                <label class="form-label" for="name">Name of the Patient</label>
+                                <input type="text" name="name" id="name" class="form-control" required />
+                            </div>
+                            <!-- Hidden input for p_id -->
+                            <input type="hidden" name="p_id" id="p_id" value="{{pId}}" class="form-control" disabled>
+                            <!-- Age and Gender inputs -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-outline datepicker">
+                                        <label for="age" class="form-label">Age</label>
+                                        <input type="text" name="age" class="form-control" id="age" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="gender" class="form-label">Gender</label>
+                                    <select class="select form-select" name="gender" required>
+                                        <option value="" disabled>Select Gender</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Male">Male</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Email and Password inputs -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-outline mb-2">
+                                        <label class="form-label" for="email">Email</label>
+                                        <input type="email" name="email" id="email" class="form-control" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-outline mb-2">
+                                        <label class="form-label" for="password">Password (6 digits)</label>
+                                        <input type="password" name="password" id="password" class="form-control"
+                                         required />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Panchayath and Ward No inputs -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-outline mb-2">
+                                        <label class="form-label" for="panchayath">Panchayath</label>
+                                        <input type="text" name="panchayath" id="panchayath" class="form-control"
+                                            required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-outline mb-2">
+                                        <label class="form-label" for="wardNo">Ward No</label>
+                                        <input type="number" name="wardNo" id="wardNo" class="form-control" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Guardian's Name and Guardian's Phone Number inputs -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-outline mb-2">
+                                        <label class="form-label" for="g_name">Guardian's Name</label>
+                                        <input type="text" name="g_name" id="g_name" class="form-control" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-outline mb-2">
+                                        <label class="form-label" for="g_mobile">Guardian's Phone Number</label>
+                                        <input type="number" name="g_mobile" id="g_mobile" class="form-control" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Address input -->
+                            <div class="form-outline mb-2">
+                                <label class="form-label" for="address">Address</label>
+                                <input type="text" name="address" id="address" class="form-control" required />
+                            </div>
+                            <!-- Ration Card input -->
+                            <label for="ration_card" class="form-label">Ration Card</label>
+                            <select class="select form-select" name="ration_card" required>
+                                <option value="" disabled>Select Ration Card Color</option>
+                                <option value="yellow">Yellow</option>
+                                <option value="pink">Pink</option>
+                                <option value="blue">Blue</option>
+                                <option value="white">White</option>
+                            </select>
+                            <hr>
+                            <h4>Primary Conditions</h4>
+                            <!-- Disease input -->
+                            <div class="form-outline mb-2">
+                                <label class="form-label" for="disease">Disease</label>
+                                <input type="text" name="disease" id="disease" class="form-control" required />
+                            </div>
+                            <!-- Note to Nurse input -->
+                            <div class="form-outline mb-2">
+                                <label class="form-label" for="nurseNote">Note to Nurse</label>
+                                <textarea cols="3" name="nurseNote" id="nurseNote" class="form-control" required></textarea>
+                            </div>
+                            <!-- Care status input -->
+                            <div class="form-outline mb-2">
+                                <label class="form-label" for="care_status">Care status</label>
+                                <textarea cols="3" name="care_status" id="care_status" class="form-control" required></textarea>
+                            </div>
+                            <!-- Warning message -->
+                             <div id="warningMessage2" class="alert alert-warning">
+                            </div>
+                            <div id="warningMessage" class="alert alert-warning">
+                                The admin will contact the patient to confirm their interest, and if everything is in order, they
+                                will then accept the patient application.
+                            </div>
+                            <button type="submit" class="btn btn-success btn-lg mb-1 w-100">Submit</button>
+                        </form>
                     </div>
-            
-
-              <button type="submit" class="btn btn-success btn-lg mb-1 w-100">Submit</button>
-
-            </form>
-
-          </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
+<!-- HTML code with JavaScript -->
+<!-- Add the following code within your <script> tag or in a separate JavaScript file -->
+<script>
+  
+    // Function to validate a 6-digit password
+          function validatePassword(password) {
+          return password.length >= 6;
+      }
+
+    // Function to validate an email address
+    function validateEmail(email) {
+        const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+        return emailRegex.test(email);
+    }
+
+    // Function to validate a mobile number
+    function validateMobileNumber(mobile) {
+        const mobileRegex = /^\d{10}$/; // Assumes a 10-digit mobile number
+        return mobileRegex.test(mobile);
+    }
+
+    // Function to perform form validation
+    function validateForm() {
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const mobileInput = document.getElementById('g_mobile');
+
+        const email = emailInput.value;
+        const password = passwordInput.value;
+        const mobile = mobileInput.value;
+
+        const warningMessage = document.getElementById('warningMessage2');
+        if (!validatePassword(password)) {
+              warningMessage.textContent = 'Password must be 6 digits long.';
+            alert('Password must be 6 digits long.');
+            return false;
+        }
+
+        if (!validateEmail(email)) {
+            alert('Invalid email address.');
+            return false;
+        }
+
+        if (!validateMobileNumber(mobile)) {
+            alert('Invalid mobile number. Please enter a 10-digit number.');
+            return false;
+        }
+
+     
+
+        // If all validations pass, the form will be submitted
+        return true;
+    }
+
+    // Add an event listener to the form to trigger the form validation
+    const form = document.querySelector('form');
+    form.addEventListener('submit', (event) => {
+        if (!validateForm()) {
+            event.preventDefault(); // Prevent form submission if validation fails
+        }
+    });
+</script>
+
+
