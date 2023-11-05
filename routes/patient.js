@@ -31,11 +31,11 @@ router.get("/",verifySignedIn, async function (req, res, next) {
 });
 
 
-router.get("/signup", function async(req, res) {
+router.get("/signup",async function (req, res) {
   if (req.session.signedIn) {
     res.redirect("/");
   } else {
-    let pId = adminHelper.getPatientIdFromSeries().then((pId)=>
+    await adminHelper.getPatientIdFromSeries().then((pId)=>
     res.render("patient/add-patient", { admin: false , pId})
     )
     
