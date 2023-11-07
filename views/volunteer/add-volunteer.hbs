@@ -17,7 +17,7 @@ height: 100vh !important;
             alt="Sample photo">
           <div class="card-body p-4 p-md-5">
             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Volunteer Registration</h3>
-            <form action="/volunteer/add-volunteer" class="px-md-2" enctype="multipart/form-data" method="POST">
+            <form action="/volunteer/add-volunteer" class="px-md-2" enctype="multipart/form-data" method="POST" onsubmit="return validateForm()">
 
             <div class="form-outline mb-2">
              <label class="form-label" for="name">Name of the Volunteer</label>
@@ -80,13 +80,17 @@ height: 100vh !important;
              </div>
              </div>
 
+               <div class="form-outline mb-2">
+             <label class="form-label" for="name">Mobile</label>
+                <input type="text" name="mobile" id="mobile" class="form-control" required />
+             </div>
               
               <div class="form-outline mb-2">
              <label class="form-label" for="name">Education</label>
                 <input type="text" name="education" id="education" class="form-control" required />
              </div>
 
-    
+            <div id="warningMessage2" class="alert alert-warning"></div>
 
               <div id="warningMessage" class="alert alert-warning">
                    The admin will contact the volunteer to confirm their interest,
@@ -104,4 +108,69 @@ height: 100vh !important;
     </div>
   </div>
 </section>
+
+<script>
+  
+    // Function to validate a 6-digit password
+          function validatePassword(password) {
+          return password.length >= 6;
+      }
+
+    // Function to validate an email address
+    function validateEmail(email) {
+        const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+        return emailRegex.test(email);
+    }
+
+    // Function to validate a mobile number
+    function validateMobileNumber(mobile) {
+        const mobileRegex = /^\d{10}$/; // Assumes a 10-digit mobile number
+        return mobileRegex.test(mobile);
+    }
+
+    function validateForm() {
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
+  const mobileInput = document.getElementById('mobile');
+
+  const email = emailInput.value;
+  const password = passwordInput.value;
+  const mobile = mobileInput.value;
+
+  const warningMessage = document.getElementById('warningMessage2');
+
+  // Validate email
+  if (!validateEmail(email)) {
+    alert('Invalid email address.')
+    warningMessage.textContent = 'Invalid email address.';
+    return false;
+  }
+
+  // Validate password
+  if (!validatePassword(password)) {
+    alert('Password must be 6 digits long.')
+    warningMessage.textContent = 'Password must be 6 digits long.';
+    return false;
+  }
+
+  // Validate mobile number
+  if (!validateMobileNumber(mobile)) {
+    alert('Invalid mobile number. Please enter a 10-digit number')
+    warningMessage.textContent = 'Invalid mobile number. Please enter a 10-digit number.';
+    return false;
+  }
+
+  // If all validations pass, return true
+  return true;
+}
+
+
+    // Add an event listener to the form to trigger the form validation
+const form = document.querySelector('form');
+    form.addEventListener('submit', (event) => {
+        if (!validateForm()) {
+            event.preventDefault(); // Prevent form submission if validation fails
+        }
+    })
+</script>
 
