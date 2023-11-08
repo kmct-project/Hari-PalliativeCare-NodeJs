@@ -112,5 +112,4 @@ router.get("/complete-duties/:vid/:index",async function (req, res) {
 });
 
 
-
 module.exports = router;
