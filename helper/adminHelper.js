@@ -5,43 +5,70 @@ const objectId = require("mongodb").ObjectID;
 
 module.exports = {
 
-  addSeries: (series)=>{
-    return new Promise((resolve,reject)=>{
+
+  ///////GET ALL appointment/////////////////////                                            
+  getAllappointments: () => {
+    return new Promise(async (resolve, reject) => {
+      let appointments = await db
+        .get()
+        .collection(collections.APPOINTMENT_COLLECTION)
+        .find()
+        .toArray();
+      resolve(appointments);
+    });
+  },
+
+  ///////ADD appointment DETAILS/////////////////////                                            
+  getappointmentDetails: (appointmentId) => {
+    return new Promise((resolve, reject) => {
+      db.get()
+        .collection(collections.APPOINTMENT_COLLECTION)
+        .findOne({
+          _id: objectId(appointmentId)
+        })
+        .then((response) => {
+          resolve(response);
+        });
+    });
+  },
+
+  addSeries: (series) => {
+    return new Promise((resolve, reject) => {
       db.get()
         .collection(collections.SERIES_COLLECTION)
         .insertOne(series)
-        .then((data)=>{
+        .then((data) => {
           resolve()
         })
     })
 
   },
-  addPatient:(patient)=>{
-    return new Promise(async(resolve,reject)=>{
-     await  db.get()
+  addPatient: (patient) => {
+    return new Promise(async (resolve, reject) => {
+      await db.get()
         .collection(collections.PATIENT_COLLECTION)
         .insertOne(patient)
-        .then(async(data)=>{
-         await db.get().collection(collections.SERIES_COLLECTION).
-          updateOne({name:"Patient_id"}, { $inc: { nextCount: 1 } }).then(()=>{
-            resolve()
-          })
+        .then(async (data) => {
+          await db.get().collection(collections.SERIES_COLLECTION).
+            updateOne({ name: "Patient_id" }, { $inc: { nextCount: 1 } }).then(() => {
+              resolve()
+            })
         })
     })
 
   },
-  addVolunteer:(volData)=>{
-    return new Promise(async(resolve,reject)=>{
+  addVolunteer: (volData) => {
+    return new Promise(async (resolve, reject) => {
       volData.password = await bcrypt.hash(volData.password, 10);
       volData.duties = [];
-     await  db.get()
+      await db.get()
         .collection(collections.VOLUNTEER_COLLECTION)
         .insertOne(volData)
-        .then(async(data)=>{
-         await db.get().collection(collections.SERIES_COLLECTION).
-          updateOne({name:"volunteer_id"}, { $inc: { nextCount: 1 } }).then(()=>{
-            resolve()
-          })
+        .then(async (data) => {
+          await db.get().collection(collections.SERIES_COLLECTION).
+            updateOne({ name: "volunteer_id" }, { $inc: { nextCount: 1 } }).then(() => {
+              resolve()
+            })
         })
     })
 
@@ -51,8 +78,8 @@ module.exports = {
       let pID = await db
         .get()
         .collection(collections.SERIES_COLLECTION)
-        .findOne({name:"Patient_id"})
-      resolve(pID.prefix+pID.nextCount);
+        .findOne({ name: "Patient_id" })
+      resolve(pID.prefix + pID.nextCount);
     });
   },
   getVolunteerIdFromSeries: () => {
@@ -60,24 +87,24 @@ module.exports = {
       let pID = await db
         .get()
         .collection(collections.SERIES_COLLECTION)
-        .findOne({name:"volunteer_id"})
-      resolve(pID.prefix+pID.nextCount);
+        .findOne({ name: "volunteer_id" })
+      resolve(pID.prefix + pID.nextCount);
     });
   },
-  getVolunteerById : (vid)=>{
+  getVolunteerById: (vid) => {
     return new Promise(async (resolve, reject) => {
       let volunteer = await db
         .get()
         .collection(collections.VOLUNTEER_COLLECTION)
-        .findOne({v_id: vid})
+        .findOne({ v_id: vid })
       resolve(volunteer);
     });
   },
 
-  getAllDonation:()=>{
-    return new Promise(async(resolve,reject)=>{
-      let data= await db.get().collection(collections.DONOR_COLLECTION)
-      .find().toArray()
+  getAllDonation: () => {
+    return new Promise(async (resolve, reject) => {
+      let data = await db.get().collection(collections.DONOR_COLLECTION)
+        .find().toArray()
       resolve(data)
     })
   },
@@ -87,7 +114,7 @@ module.exports = {
       let volunteers = await db
         .get()
         .collection(collections.VOLUNTEER_COLLECTION)
-        .find({status:"approved"})
+        .find({ status: "approved" })
         .toArray();
       resolve(volunteers);
     });
@@ -97,95 +124,95 @@ module.exports = {
       let patients = await db
         .get()
         .collection(collections.PATIENT_COLLECTION)
-        .find({status:"approved"})
+        .find({ status: "approved" })
         .toArray();
       resolve(patients);
     });
   },
-  approveVolunteer:(vId)=>{
+  approveVolunteer: (vId) => {
     return new Promise(async (resolve, reject) => {
       const volunteer = await db.get().collection(collections.VOLUNTEER_COLLECTION).findOne({ v_id: vId });
-       volunteer.status="approved";
+      volunteer.status = "approved";
       await db.get().collection(collections.VOLUNTEER_COLLECTION).updateOne({ v_id: vId }, { $set: { status: "approved" } });
       resolve("approved successfully.");
     });
 
   },
-  rejectionVolunteer :(vId)=>{
+  rejectionVolunteer: (vId) => {
     return new Promise(async (resolve, reject) => {
-      
+
       const patient = await db.get().collection(collections.PATIENT_COLLECTION).deleteOne({ v_id: vId });
       resolve("rejected successfully.");
     });
   },
-  approvePatient:(pId)=>{
+  approvePatient: (pId) => {
     return new Promise(async (resolve, reject) => {
       const patient = await db.get().collection(collections.PATIENT_COLLECTION).findOne({ p_id: pId });
-      patient.status="approved";
+      patient.status = "approved";
       await db.get().collection(collections.PATIENT_COLLECTION).updateOne({ p_id: pId }, { $set: { status: "approved" } });
       resolve("approved successfully.");
     });
 
   },
-  rejectionPatient :(pId)=>{
+  rejectionPatient: (pId) => {
     return new Promise(async (resolve, reject) => {
-      
+
       const patient = await db.get().collection(collections.PATIENT_COLLECTION).deleteOne({ p_id: pId });
       resolve("rejected successfully.");
     });
   },
-  getAllPendingVolunteerCount:()=>{
-    return new Promise(async (resolve,reject)=>{
+  getAllPendingVolunteerCount: () => {
+    return new Promise(async (resolve, reject) => {
       const pendingVolunteersCount = await db.get().collection(collections.VOLUNTEER_COLLECTION).countDocuments({ status: 'pending' });
       // .find({ status: 'pending' }).toArray();
-      resolve( pendingVolunteersCount)
+      resolve(pendingVolunteersCount)
     })
   },
-  getAllPendingVolunteers:()=>{
-    return new Promise(async (resolve,reject)=>{
-      
+  getAllPendingVolunteers: () => {
+    return new Promise(async (resolve, reject) => {
+
       const pendingVolunteers = await db.get().collection(collections.VOLUNTEER_COLLECTION).find({ status: 'pending' }).toArray();
-      resolve( pendingVolunteers)
+      resolve(pendingVolunteers)
     })
 
   },
-  getAllPendingPatientCount:()=>{
-    return new Promise(async (resolve,reject)=>{
+  getAllPendingPatientCount: () => {
+    return new Promise(async (resolve, reject) => {
       const pendingPatientsCount = await db.get().collection(collections.PATIENT_COLLECTION).countDocuments({ status: 'pending' });
       // .find({ status: 'pending' }).toArray();
-      resolve( pendingPatientsCount)
+      resolve(pendingPatientsCount)
     })
   },
-  getAllPendingPatients:()=>{
-    return new Promise(async (resolve,reject)=>{
-      
+  getAllPendingPatients: () => {
+    return new Promise(async (resolve, reject) => {
+
       const pendingPatients = await db.get().collection(collections.PATIENT_COLLECTION).find({ status: 'pending' }).toArray();
-      resolve( pendingPatients)
+      resolve(pendingPatients)
     })
 
   },
-  setVolunteerDutiesById:(vId,dutyData)=>{
- 
+  setVolunteerDutiesById: (vId, dutyData) => {
+
     return new Promise(async (resolve, reject) => {
       const volunteer = await db.get().collection(collections.VOLUNTEER_COLLECTION).findOne({ v_id: vId });
-       volunteer.duties.push(dutyData);  
+      volunteer.duties.push(dutyData);
       await db.get().collection(collections.VOLUNTEER_COLLECTION).updateOne({ v_id: vId }, { $set: { duties: volunteer.duties } });
       resolve("Duty data added successfully.");
     });
   },
-  deleteVolunteerDutiesById:(vId,dutyIndex)=>{
+  deleteVolunteerDutiesById: (vId, dutyIndex) => {
     return new Promise(async (resolve, reject) => {
       const volunteer = await db.get().collection(collections.VOLUNTEER_COLLECTION).findOne({ v_id: vId });
-        // Check if the dutyIndex is valid
-        if (dutyIndex >= 0 && dutyIndex < volunteer.duties.length) {
-          // Remove the duty at the specified index using $pull
-          await db.get().collection(collections.VOLUNTEER_COLLECTION).updateOne(
-            { v_id: vId },
-            { $pull: { duties: volunteer.duties[dutyIndex] } }
-          );
+      // Check if the dutyIndex is valid
+      if (dutyIndex >= 0 && dutyIndex < volunteer.duties.length) {
+        // Remove the duty at the specified index using $pull
+        await db.get().collection(collections.VOLUNTEER_COLLECTION).updateOne(
+          { v_id: vId },
+          { $pull: { duties: volunteer.duties[dutyIndex] } }
+        );
 
-          resolve('Duty deleted successfully.');
-        }
+        resolve('Duty deleted successfully.');
+      }
 
     })
 
@@ -258,7 +285,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       db.get()
         .collection(collections.PATIENT_COLLECTION)
-        .removeOne({ p_id:pId })
+        .removeOne({ p_id: pId })
         .then((response) => {
           console.log(response);
           resolve(response);
@@ -274,7 +301,7 @@ module.exports = {
           { _id: objectId(Id) },
           {
             $set: {
-           ...Details
+              ...Details
             },
           }
         )

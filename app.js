@@ -11,6 +11,8 @@ var patientHelper = require("./routes/patient");
 var fileUpload = require("express-fileupload");
 var db = require("./config/connection");
 var session = require("express-session");
+const flash = require('connect-flash');
+
 var app = express();
 
 // view engine setup
@@ -25,18 +27,18 @@ app.engine(
     layoutsDir: __dirname + "/views/layout/",
     partialsDir: __dirname + "/views/header-partials/",
     helpers: {
-     
-      
+
+
       incremented: function (index) {
         index++;
         return index;
       },
       getStatusBtnClass: function (status) {
         if (status === 'pending') {
-          return 'bg-danger'; 
+          return 'bg-danger';
         }
-        else if(status === 'approved') {
-          return 'bg-success'; 
+        else if (status === 'approved') {
+          return 'bg-success';
         }
       },
     },
@@ -48,15 +50,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(fileUpload());
-app.use(session({secret:"Key", cookie:{maxAge:600000}}))
+app.use(session({ secret: "Key", cookie: { maxAge: 600000 } }))
+app.use(flash());
+
 db.connect((err) => {
   if (err) console.log("Error" + err);
   else console.log("Database Connected Successfully");
 });
 app.use("/", usersRouter);
 app.use("/admin", adminRouter);
-app.use("/volunteer",volunteerHelper);
-app.use("/patient",patientHelper);
+app.use("/volunteer", volunteerHelper);
+app.use("/patient", patientHelper);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

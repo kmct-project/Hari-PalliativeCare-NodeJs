@@ -2,7 +2,7 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
-                <h4 class="page-title">Manage Patients</h4>
+                <h4 class="page-title">All Appointments</h4>
                 <div class="ms-auto text-end">
                 </div>
             </div>
@@ -10,9 +10,6 @@
     </div>
 
     <div class="container-fluid">
-        <a href="/admin/add-patient" class="btn btn-primary mb-3">+ Add Patient</a>
-        <a href="/admin/all-appointments" class="btn btn-dark mb-3">View Appointment</a>
-
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
@@ -20,24 +17,20 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>PatientId</th>
+                                <th>Appointments Date</th>
                                 <th>Name</th>
-                                <th>Panchayath</th>
-                                <th>Ward</th>
-                                <th>Disease</th>
-                                <th>Status</th>
+                                <th>Mobile Number</th>
+                                <th>Note</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{#each patients}}
+                            {{#each appointments}}
                             <tr>
                                 <td>{{incremented @index}}</td>
-                                <td>{{this.p_id}}</td>
+                                <td>{{this.date}}</td>
                                 <td>{{this.name}}</td>
-                                <td>{{this.panchayath}}</td>
-                                <td>{{this.wardNo}}</td>
-                                <td>{{this.disease}}</td>
-                                <td>{{this.care_status}}</td>
+                                <td>{{this.g_mobile}}</td>
+                                <td>{{this.note}}</td>
 
                             </tr>
                             {{/each}}

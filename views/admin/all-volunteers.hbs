@@ -1,6 +1,4 @@
-
-
-            <div class="page-wrapper">
+<div class="page-wrapper">
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
@@ -19,25 +17,25 @@
                     <table id="zero_config" class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                               <th>No.</th>
-                             <th>joining Date</th>
-                            <th>Receipt No</th>
-                            <th>Name</th>
-                           <th>Age</th>
-                            <th>Type</th>
-                            <th>No.Duties</th>
+                                <th>No.</th>
+                                <th>joining Date</th>
+                                <th>Vid</th>
+                                <th>Name</th>
+                                <th>Age</th>
+                                <th>Type</th>
+                                <th>No.Duties</th>
                             </tr>
                         </thead>
                         <tbody>
-                        {{#each volunteers}}
+                            {{#each volunteers}}
                             <tr>
                                 <td>{{incremented @index}}</td>
-                               <td>{{this.joining_date}}</td>
-                            <td>{{this.v_id}}</td>
-                            <td>{{this.name}}</td>
-                              <td>{{this.age}}</td>
-                            <td>{{this.type}}</td>
-                            <td>{{this.duties.length}}</td>
+                                <td>{{this.joining_date}}</td>
+                                <td>{{this.v_id}}</td>
+                                <td>{{this.name}}</td>
+                                <td>{{this.age}}</td>
+                                <td>{{this.type}}</td>
+                                <td>{{this.duties.length}}</td>
 
                             </tr>
                             {{/each}}
