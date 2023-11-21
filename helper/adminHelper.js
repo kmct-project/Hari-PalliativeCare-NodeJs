@@ -141,7 +141,7 @@ module.exports = {
   rejectionVolunteer: (vId) => {
     return new Promise(async (resolve, reject) => {
 
-      const patient = await db.get().collection(collections.PATIENT_COLLECTION).deleteOne({ v_id: vId });
+      const volunteer = await db.get().collection(collections.VOLUNTEER_COLLECTION).deleteOne({ v_id: vId });
       resolve("rejected successfully.");
     });
   },
