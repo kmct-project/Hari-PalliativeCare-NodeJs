@@ -1,9 +1,4 @@
-
-
-
-
-
-            <div class="page-wrapper">
+<div class="page-wrapper">
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
@@ -21,38 +16,38 @@
                     <table id="zero_config" class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                         <th>No.</th>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Address </th>
-                            <th>Disease</th>
-                            <th>Ration Card</th>
-                            <th>Guardian Mobile</th>
-                            <th>Nurse Note</th>
-                            <th>Approve</th>
-                            <th>Reject</th>
+                                <th>No.</th>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Address </th>
+                                <th>Disease</th>
+                                <th>Ration Card</th>
+                                <th>Guardian Mobile</th>
+                                <th>Nurse Note</th>
+                                <th>Approve</th>
+                                <th>Reject</th>
 
                             </tr>
                         </thead>
                         <tbody>
-                        {{#each patient}}
+                            {{#each patient}}
                             <tr>
                                 <td>{{incremented @index}}</td>
-                              <td>{{this.p_id}}</td>
-                            <td>{{this.name}}</td>
-                            <td>{{this.address}}</td>
-                            <td>{{this.disease}}</td>
-                            <td>{{ration_card}}</td>
-                            <td>{{this.g_mobile}}</td>
-                            <td>{{this.nurseNote}}</td>
-                            <td><a href="/admin/approvalPatient/{{this.p_id}}" class="btn btn-success text-white"> 
-                                Approval
-                                </a>
-                            </td>
-                             <td><a  class="btn btn-danger" href="/admin/rejectionPatient/{{this.p_id}}"> 
-                                rejection
-                                </a>
-                            </td>
+                                <td>{{this.p_id}}</td>
+                                <td>{{this.name}}</td>
+                                <td>{{this.address}}</td>
+                                <td>{{this.disease}}</td>
+                                <td>{{ration_card}}</td>
+                                <td>{{this.g_mobile}}</td>
+                                <td>{{this.nurseNote}}</td>
+                                <td><a href="/admin/approvalPatient/{{this.p_id}}" class="btn btn-success text-white">
+                                        Approve
+                                    </a>
+                                </td>
+                                <td><a class="btn btn-danger" href="/admin/rejectionPatient/{{this.p_id}}">
+                                        Reject
+                                    </a>
+                                </td>
                             </tr>
                             {{/each}}
                         </tbody>
