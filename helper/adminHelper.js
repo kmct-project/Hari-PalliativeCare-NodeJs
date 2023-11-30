@@ -183,12 +183,9 @@ module.exports = {
             { v_id: vId },
             { $pull: { duties: volunteer.duties[dutyIndex] } }
           );
-
           resolve('Duty deleted successfully.');
         }
-
-    })
-
+    }) 
   },
   doSignup: (adminData) => {
     return new Promise(async (resolve, reject) => {
