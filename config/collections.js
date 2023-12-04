@@ -6,5 +6,6 @@ module.exports = {
     PATIENT_COLLECTION: 'Patient',
     SERIES_COLLECTION: 'series',
     APPOINTMENT_COLLECTION: "appointment",
+    ACTIVITY_COLLECTION: "activity",
 
 }

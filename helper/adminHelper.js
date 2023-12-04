@@ -4,6 +4,31 @@ var bcrypt = require("bcrypt");
 const objectId = require("mongodb").ObjectID;
 
 module.exports = {
+  ///////GET ALL activity/////////////////////                                            
+  getAllactivities: () => {
+    return new Promise(async (resolve, reject) => {
+      let activities = await db
+        .get()
+        .collection(collections.ACTIVITY_COLLECTION)
+        .find()
+        .toArray();
+      resolve(activities);
+    });
+  },
+
+  ///////ADD activity DETAILS/////////////////////                                            
+  getactivityDetails: (activityId) => {
+    return new Promise((resolve, reject) => {
+      db.get()
+        .collection(collections.ACTIVITY_COLLECTION)
+        .findOne({
+          _id: objectId(activityId)
+        })
+        .then((response) => {
+          resolve(response);
+        });
+    });
+  },
 
 
   ///////GET ALL appointment/////////////////////                                            

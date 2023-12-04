@@ -1,0 +1,123 @@
+<div class="container">
+
+    <div class="page-wrapper mt-4">
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-12 d-flex no-block align-items-center">
+                    <h4 class="page-title">Daily Activities</h4><br><br>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            {{#if pending}}
+            <button class="btn btn-success mb-3">Account Status : Pending</button><br>
+            <div class="card">
+                <div class="card-body">
+                    <div id="warningMessage" class="alert alert-warning">
+                        Please contact admin to verify your volunteer application.
+                    </div>
+
+                </div>
+            </div>
+            {{else}}
+            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Add Activity
+            </button>
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="zero_config" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>date</th>
+                                    <th>Patient Name</th>
+                                    <th>Activity</th>
+                                    <th>NurseNote</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each activities}}
+                                <tr>
+                                    <td>{{incremented @index}}</td>
+                                    <td>{{this.date}}</td>
+                                    <td>{{this.pname}}</td>
+                                    <td>{{this.activity}}</td>
+                                    <td>{{this.note}}</td>
+                                    <td><a href="/volunteer/delete-activity/{{this._id}}"
+                                            class="btn btn-success text-white"> Delete
+                                        </a></td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Activity</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/volunteer/add-activity" method="POST">
+                    {{#if volunteer}}
+                    <input type="hidden" name="vname" value="{{volunteer.name}}" class="form-control">
+                    {{/if}}
+                    <input type="hidden" name="date" id="datetime" class="form-control">
+
+
+                    <select class="form-select mb-3" name="pname" aria-label="Default select example">
+                        <option selected>Select Patient</option>
+                        {{#each duties.duties}}
+
+                        <option value="{{this.patientName}}">{{this.patientName}}</option>
+                        {{/each}}
+                    </select>
+
+
+                    <div class="mb-3">
+                        <label class="form-label">Activity</label>
+                        <input type="text" class="form-control" name="activity">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Note</label>
+                        <textarea type="text" class="form-control" name="note"></textarea>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Get current date and time
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+    const day = now.getDate().toString().padStart(2, '0');
+    const hours = ((now.getHours() + 11) % 12 + 1).toString().padStart(2, '0'); // Convert to 12-hour format
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+
+    // Set default value to current date and time in 12-hour format with AM/PM
+    const defaultDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+    document.getElementById('datetime').value = defaultDateTime;
+</script>

@@ -3,6 +3,7 @@ var collections = require("../config/collections");
 const bcrypt = require("bcrypt");
 const objectId = require("mongodb").ObjectID;
 const Razorpay = require("razorpay");
+const nodemailer = require('nodemailer');
 
 var instance = new Razorpay({
   key_id: "rzp_test_8NokNgt8cA3Hdv",
@@ -10,27 +11,60 @@ var instance = new Razorpay({
 });
 
 module.exports = {
-  addDonation:(data) => {
+
+
+  addDonation: (data) => {
     return new Promise(async (resolve, reject) => {
-      let donation = await db
-        .get()
-        .collection(collections.DONOR_COLLECTION)
-        .insertOne(data)
-        .then(async(data)=>{
-          await db.get().collection(collections.SERIES_COLLECTION).
-           updateOne({name:"donor_id"}, { $inc: { nextCount: 1 } }).then(()=>{
-             resolve()
-           })
-         })
+      try {
+        // Save donation details to the database
+        let donation = await db
+          .get()
+          .collection(collections.DONOR_COLLECTION)
+          .insertOne(data);
+
+        // Increment the donor_id count in the SERIES_COLLECTION
+        await db.get().collection(collections.SERIES_COLLECTION)
+          .updateOne({ name: "donor_id" }, { $inc: { nextCount: 1 } });
+
+        // Send congratulatory email
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: 'mishabmsb91@gmail.com',  // Replace with your Gmail email
+            pass: 'buekcxygvhmrqska'         // Replace with your Gmail password or app password
+          }
+        });
+
+        const mailOptions = {
+          from: 'mishabmsb91@gmail.com',
+          to: data.email,  // Assuming the email is stored in the 'email' field of the 'data' object
+          subject: 'Congratulations on Your Donation!',
+          text: `Dear ${data.name},\n\nThank you for your generous donation of Rs.${data.amount}.\n\nSincerely,\nThe Donation Team`
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            console.error('Error sending email:', error);
+          } else {
+            console.log('Email sent:', info.response);
+          }
+        });
+
+        resolve();
+      } catch (error) {
+        console.error('Error adding donation:', error);
+        reject(error);
+      }
     });
   },
-  getDonationIdFromSeries:() => {
+
+  getDonationIdFromSeries: () => {
     return new Promise(async (resolve, reject) => {
       let pID = await db
         .get()
         .collection(collections.SERIES_COLLECTION)
-        .findOne({name:"donor_id"})
-      resolve(pID.prefix+pID.nextCount);
+        .findOne({ name: "donor_id" })
+      resolve(pID.prefix + pID.nextCount);
     });
   },
 
@@ -92,8 +126,8 @@ module.exports = {
 
       hmac.update(
         details["payment[razorpay_order_id]"] +
-          "|" +
-          details["payment[razorpay_payment_id]"]
+        "|" +
+        details["payment[razorpay_payment_id]"]
       );
       hmac = hmac.digest("hex");
 

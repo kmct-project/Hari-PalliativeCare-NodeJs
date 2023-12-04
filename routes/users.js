@@ -12,10 +12,10 @@ const verifySignedIn = (req, res, next) => {
 
 /* GET home page. */
 router.get("/", async function (req, res, next) {
- 
-  
-    res.render("users/home", { admin: false, });
-  
+
+
+  res.render("users/home", { admin: false, });
+
 });
 
 router.get("/signup", function (req, res) {
@@ -26,14 +26,14 @@ router.get("/signup", function (req, res) {
   }
 });
 router.get("/donateUs", async function (req, res) {
-  let donationId = await userHelper.getDonationIdFromSeries().then((id)=>id)
-    res.render("users/donateUs", { admin: false , donationId });
+  let donationId = await userHelper.getDonationIdFromSeries().then((id) => id)
+  res.render("users/donateUs", { admin: false, donationId });
 });
 
-router.post("/donateUs", async function  (req, res) {
-  let data=req.body;
-   userHelper.addDonation(req.body).then(()=>{
-  res.render("users/donation-accepted", { admin: false,data });
+router.post("/donateUs", async function (req, res) {
+  let data = req.body;
+  userHelper.addDonation(req.body).then(() => {
+    res.render("users/donation-accepted", { admin: false, data });
   })
 });
 
