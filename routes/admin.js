@@ -37,7 +37,12 @@ router.get("/all-duties", verifySignedIn, function (req, res, next) {
   });
 });
 
-
+router.get("/all-activities", verifySignedIn, function (req, res) {
+  let administator = req.session.admin;
+  adminHelper.getAllactivities().then(async (activities) => {
+    res.render("admin/all-activities", { admin: true, layout: "adminlayout", activities, administator });
+  });
+});
 
 router.get("/all-patients", verifySignedIn, function (req, res) {
   let administator = req.session.admin;
