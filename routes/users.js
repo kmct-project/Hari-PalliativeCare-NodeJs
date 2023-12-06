@@ -2,6 +2,7 @@ var express = require("express");
 var userHelper = require("../helper/userHelper");
 var router = express.Router();
 
+
 const verifySignedIn = (req, res, next) => {
   if (req.session.signedIn) {
     next();
@@ -36,6 +37,7 @@ router.post("/donateUs", async function (req, res) {
     res.render("users/donation-accepted", { admin: false, data });
   })
 });
+
 
 router.get("/donation-accepted", function (req, res) {
   res.render("users/donation-accepted", { admin: false });

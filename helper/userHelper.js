@@ -5,6 +5,7 @@ const objectId = require("mongodb").ObjectID;
 const Razorpay = require("razorpay");
 const nodemailer = require('nodemailer');
 
+//// Razorpay Payment Gateway Key ///////
 var instance = new Razorpay({
   key_id: "rzp_test_8NokNgt8cA3Hdv",
   key_secret: "xPzG53EXxT8PKr34qT7CTFm9",
@@ -49,6 +50,8 @@ module.exports = {
             console.log('Email sent:', info.response);
           }
         });
+
+        
 
         resolve();
       } catch (error) {
@@ -105,6 +108,8 @@ module.exports = {
       }
     });
   },
+  
+  //////////// RAZORPAY PAYMENT INTEGRATION///////////////
   generateRazorpay: (orderId, totalPrice) => {
     return new Promise((resolve, reject) => {
       var options = {
@@ -119,6 +124,7 @@ module.exports = {
     });
   },
 
+  //////////// RAZORPAY PAYMENT VERIFICATION///////////////
   verifyPayment: (details) => {
     return new Promise((resolve, reject) => {
       const crypto = require("crypto");
@@ -137,5 +143,26 @@ module.exports = {
         reject();
       }
     });
-  }
+  },
+
+  ////////////CHANGE RAZORPAY PAYMENT STATUS///////////////
+  changePaymentStatus: (orderId) => {
+    return new Promise((resolve, reject) => {
+      db.get()
+        .collection(collections.ORDER_COLLECTION)
+        .updateOne(
+          { _id: objectId(orderId) },
+          {
+            $set: {
+              "orderObject.status": "requested",
+            },
+          }
+        )
+        .then(() => {
+          resolve();
+        });
+    });
+  },
+
+ 
 };

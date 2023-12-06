@@ -1,3 +1,4 @@
+
 <style>
     .loginBox input[type="text"],
     .loginBox input[type="number"] {
@@ -121,7 +122,7 @@
 
 <div class="loginBox"> <img class="user" src="https://i.ibb.co/FJMMXBq/donation.png" height="100px" width="100px">
     <h3>Donate Us Now</h3>
-    <form action="/donateUs" method="POST">
+    <form id="checkout-form" action="/donateUs" method="post">
         {{!-- <form action="#!" method="#"> --}}
 
 
@@ -134,13 +135,79 @@
                 <input id="amount" type="number" name="amount" placeholder="Donation Amount">
                 <input type="hidden" value="{{donationId}}" name="d_id" />
             </div>
-
-            <input type="submit" name="" value="submit">
+             <input id="pay"  class="btn btn-success" type="button" name="" value="Pay Now">
+            <input id="submit" type="submit" name="" value="submit" >
         </form>
 
 
 </div>
+<script>
+    $('#pay').on('click', function () {
+         var donationAmount = $('#amount').val();
 
+
+             const timestamp = new Date().getTime();
+      const random = Math.floor(Math.random() * 10000);
+      const orderId = `${timestamp}${random}`;
+      const amount=donationAmount*100;
+       if (donationAmount && donationAmount > 0) {
+                razorpayPayment(orderId,amount)
+                  $('#submit').prop('disabled', false);
+            } else {
+                alert('Please enter a valid donation amount.');
+            }
+               
+        });
+
+
+   /* $("#checkout-form").submit((e) => {
+        e.preventDefault();
+          $.ajax({
+                 $.ajax({
+            url: '/donateUs',
+            method: 'post',
+            data: $("#checkout-form").serialize(),
+            success: (response) => {
+     
+            }
+        })
+        
+       
+    }) */
+
+    function razorpayPayment(order,amount) {
+        var options = {
+            "key": "rzp_test_8NokNgt8cA3Hdv", // Enter the Key ID generated from the Dashboard
+            "amount": amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "Shopping Cart",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response) {
+                verifyPayment(response, order)
+            },
+            "prefill": {
+                "name": "Gaurav Kumar",
+                "email": "gaurav.kumar@example.com",
+                "contact": "9999999999"
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        }
+        var rzp1 = new Razorpay(options);
+        rzp1.open()
+    }
+
+    function verifyPayment(payment, order) {
+      
+    }
+</script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
     // Get current date and time
     const now = new Date();
